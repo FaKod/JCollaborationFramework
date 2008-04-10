@@ -65,7 +65,7 @@ public class JCFConnectionImpl implements JCFConnection {
 			xMPPconnection.connect();
 			xMPPconnection.login(userName, passwd, "Smak", true );
 		} catch (XMPPException e) {
-			e.printStackTrace();
+			throw new JCFException("cannot connect to " + jabberServer + " with usename " + userName + " and password " + passwd, e);
 		}
 	}
 	
