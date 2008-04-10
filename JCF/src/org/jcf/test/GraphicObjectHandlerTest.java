@@ -9,8 +9,8 @@ import org.jcf.GraphicObjectHandler;
 import org.jcf.JCFFactory;
 import org.jcf.graphicMessage.Event;
 import org.jcf.graphicMessage.GraphicMessage;
-import org.jcf.graphicMessage.GraphicObject;
 import org.jcf.graphicMessage.GraphicObjectFactory;
+import org.jcf.graphicMessage.GraphicObject;
 import org.jcf.graphicMessage.Id;
 import org.jcf.graphicMessage.Location;
 

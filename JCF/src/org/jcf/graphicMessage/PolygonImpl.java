@@ -15,44 +15,28 @@
  */
 package org.jcf.graphicMessage;
 
-import org.springframework.util.Assert;
-
 /**
- *  a instance of Create indicated that an graphical object has to be created
+ * creating graphical object of type PolygonImpl
+ * default using unique id
  * @author FaKod
  *
  */
-public final class Create extends Event {
+public class PolygonImpl extends GraphicObjectImpl implements Polygon {
 	
 	/**
 	 * Version ID
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * instance of the graphical instance
-	 */
-	private GraphicObject graphicObject;
-	
-	/**
-	 * do not use this
-	 */
-	protected Create() {}
-	
-	/**
-	 * ctor with the instance of the object
-	 * @param graphicObject instance
-	 */
-	Create(GraphicObject graphicObject) {
-		Assert.notNull(graphicObject);
-		this.graphicObject = graphicObject;
-	}
 
-	/**
-	 * gets the graphical object
-	 * @return GraphicObjectImpl that has to be created
+	public PolygonImpl(Id id) {
+		super(id);
+	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
 	 */
-	public GraphicObject getGraphicObject() {
-		return graphicObject;
+	@Override
+	public String toString() {
+		return "PolygonImpl with id: " + getId();
 	}
 }

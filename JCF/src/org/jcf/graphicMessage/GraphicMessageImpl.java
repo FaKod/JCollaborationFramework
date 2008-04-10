@@ -81,7 +81,7 @@ public class GraphicMessageImpl implements GraphicMessage, Serializable {
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.jcf.graphicMessage.IGraphicMessage#addCreateEvent(org.jcf.graphicMessage.GraphicObject)
+	 * @see org.jcf.graphicMessage.IGraphicMessage#addCreateEvent(org.jcf.graphicMessage.GraphicObjectImpl)
 	 */
 	public GraphicMessage addCreateEvent(GraphicObject go) {
 		Assert.notNull(go);
@@ -91,7 +91,7 @@ public class GraphicMessageImpl implements GraphicMessage, Serializable {
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.jcf.graphicMessage.IGraphicMessage#addDeleteEvent(org.jcf.graphicMessage.GraphicObject)
+	 * @see org.jcf.graphicMessage.IGraphicMessage#addDeleteEvent(org.jcf.graphicMessage.GraphicObjectImpl)
 	 */
 	public GraphicMessage addDeleteEvent(GraphicObject graphicObject) {
 		Assert.notNull(graphicObject);

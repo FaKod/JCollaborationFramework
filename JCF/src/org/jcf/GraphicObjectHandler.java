@@ -95,28 +95,28 @@ public interface GraphicObjectHandler {
 	GraphicObjectHandler deleteGraphicObject(Id graphicObjectId);
 
 	/**
-	 * Adding Message of creation of a Point to the existing Message
+	 * Adding Message of creation of a PointImpl to the existing Message
 	 * and doing all the necessary operations in the store. 
 	 * Notifications are also thrown
-	 * @param loc Location of the Point
+	 * @param loc Location of the PointImpl
 	 * @return this instance of GraphicObjectHandler
 	 */
 	GraphicObjectHandler createPointObject(Location loc);
 
 	/**
-	 * Adding Message of creation of a Line to the existing Message
+	 * Adding Message of creation of a LineImpl to the existing Message
 	 * and doing all the necessary operations in the store. 
 	 * Notifications are also thrown
-	 * @param locs Locations of the Line
+	 * @param locs Locations of the LineImpl
 	 * @return this instance of GraphicObjectHandler
 	 */
 	GraphicObjectHandler createLineObject(List<Location> locs);
 
 	/**
-	 * Adding Message of creation of a Polygon to the existing Message
+	 * Adding Message of creation of a PolygonImpl to the existing Message
 	 * and doing all the necessary operations in the store. 
 	 * Notifications are also thrown
-	 * @param locs Locations of the Polygon
+	 * @param locs Locations of the PolygonImpl
 	 * @return this instance of GraphicObjectHandler
 	 */
 	GraphicObjectHandler createPolygonObject(List<Location> locs);

@@ -54,11 +54,11 @@ public abstract class GraphicObjectFactory {
 	}
 
 	/**
-	 * creating new Point object with new id and new Location
+	 * creating new PointImpl object with new id and new Location
 	 * @param nikName Nikname inside room
 	 * @param room name of the room
 	 * @param loc Location instance
-	 * @return new created Point object
+	 * @return new created PointImpl object
 	 */
 	public static Point createPoint(String nikName, String room, Location loc) {
 		Assert.hasLength(nikName);
@@ -66,17 +66,17 @@ public abstract class GraphicObjectFactory {
 		Assert.notNull(loc);
 		
 		Id id = IdFactory.getNextId(room, nikName);
-		Point p = new Point(id);
+		Point p = new PointImpl(id);
 		p.addLocation(loc);
 		return p;
 	}
 	
 	/**
-	 * creating new Line object with new id and a list of locations
+	 * creating new LineImpl object with new id and a list of locations
 	 * @param nikName Nikname inside room
 	 * @param room name of the room
 	 * @param locs Location instance
-	 * @return new created Line object
+	 * @return new created LineImpl object
 	 */
 	public static Line createLine(String nikName, String room, List<Location> locs) {
 		Assert.hasLength(nikName);
@@ -84,17 +84,17 @@ public abstract class GraphicObjectFactory {
 		Assert.notNull(locs);
 		
 		Id id = IdFactory.getNextId(room, nikName);
-		Line l = new Line(id);
+		Line l = new LineImpl(id);
 		l.addAllLocation(locs);
 		return l;
 	}
 	
 	/**
-	 * creating new Polygon object with new id and a list of locations
+	 * creating new PolygonImpl object with new id and a list of locations
 	 * @param nikName Nikname inside room
 	 * @param room name of the room
 	 * @param locs Location instance
-	 * @return new created Polygon object
+	 * @return new created PolygonImpl object
 	 */
 	public static Polygon createPolygon(String nikName, String room, List<Location> locs) {
 		Assert.hasLength(nikName);
@@ -102,7 +102,7 @@ public abstract class GraphicObjectFactory {
 		Assert.notNull(locs);
 		
 		Id id = IdFactory.getNextId(room, nikName);
-		Polygon p = new Polygon(id);
+		Polygon p = new PolygonImpl(id);
 		p.addAllLocation(locs);
 		return p;
 	}

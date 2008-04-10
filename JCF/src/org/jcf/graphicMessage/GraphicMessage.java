@@ -52,7 +52,7 @@ public interface GraphicMessage {
 
 	/**
 	 * adds new create message
-	 * @param p instance of Line
+	 * @param p instance of LineImpl
 	 * @return the same Graphic Message instance
 	 */
 	public abstract GraphicMessage addCreateEvent(GraphicObject p);
