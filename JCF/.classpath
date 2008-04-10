@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="/Users/christopherschmidt/Documents/Development/workspace/JCF/lib/smack.jar" sourcepath="/Users/christopherschmidt/Documents/StoredDownLoads/Jabber/smack_src_3_0_4/source">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/Users/christopherschmidt/Documents/StoredDownLoads/Jabber/smack_src_3_0_4/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/christopherschmidt/Documents/Development/workspace/JCF/lib/smackx-jingle.jar"/>
+	<classpathentry kind="lib" path="/Users/christopherschmidt/Documents/Development/workspace/JCF/lib/smackx.jar" sourcepath="/Users/christopherschmidt/Documents/StoredDownLoads/Jabber/smack_src_3_0_4/source">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/Users/christopherschmidt/Documents/StoredDownLoads/Jabber/smack_src_3_0_4/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/christopherschmidt/Documents/Development/workspace/JCF/lib/spring.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
