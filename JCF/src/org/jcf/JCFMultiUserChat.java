@@ -68,4 +68,11 @@ public interface JCFMultiUserChat {
 	 * @return the JCFConnection
 	 */
 	public JCFConnection getJCFConnection();
+	
+	/**
+	 * invote user to this room
+	 * @param user user name
+	 * @param reason reason for this invitation
+	 */
+	public void invite(String user, String reason);
 }

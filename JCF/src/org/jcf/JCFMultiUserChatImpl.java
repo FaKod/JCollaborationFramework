@@ -151,6 +151,8 @@ public class JCFMultiUserChatImpl implements JCFMultiUserChat {
 	 */
 	public void sendMessage(String body) {
 		Assert.notNull(body);
+		if(multiUserChat==null)
+			throw new JCFException("create or join room first");
 		
 		if(getGraphicObjectHandler().getGraphicMessage()==null)
 			throw new JCFException("no GraphicMessage. call create first");
@@ -164,7 +166,7 @@ public class JCFMultiUserChatImpl implements JCFMultiUserChat {
 		try {
 			multiUserChat.sendMessage(message);
 		} catch (XMPPException e) {
-			e.printStackTrace();
+			throw new JCFException("send message failed", e);
 		}	
 		getGraphicObjectHandler().createNewGraphicMessage();
 	}
@@ -175,13 +177,15 @@ public class JCFMultiUserChatImpl implements JCFMultiUserChat {
 	 */
 	public void sendMessageWithoutGeographicMessage(String body) {
 		Assert.notNull(body);
+		if(multiUserChat==null)
+			throw new JCFException("create or join room first");
 		
 		Message message = new Message(roomID, Message.Type.groupchat);
 		message.setBody(body);
 		try {
 			multiUserChat.sendMessage(message);
 		} catch (XMPPException e) {
-			e.printStackTrace();
+			throw new JCFException("send message failed", e);
 		}	
 	}
 	
@@ -220,6 +224,16 @@ public class JCFMultiUserChatImpl implements JCFMultiUserChat {
 	 */
 	public MultiUserChat getMultiUserChat() {
 		return multiUserChat;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see org.jcf.JCFMultiUserChat#invite(java.lang.String, java.lang.String)
+	 */
+	public void invite(String user, String reason) {
+		if(multiUserChat==null)
+			throw new JCFException("create or join room first");
+		multiUserChat.invite(user, reason);
 	}
 	
 }
