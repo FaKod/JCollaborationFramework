@@ -175,12 +175,12 @@ public class GraphicObjectHandlerImpl implements GraphicObjectHandler {
 		
 		graphicMessage.addDeleteEvent(graphicObjectId);
 		objects.remove(graphicObjectId);
-		fireDeleteEvent(graphicObjectId);
+		//fireDeleteEvent(graphicObjectId);
 		
 		GraphicObject newGo = GraphicObjectFactory.create(oldGo, nikName, room, newLocations);
 		graphicMessage.addCreateEvent(newGo);
 		objects.put(newGo.getId(), newGo);
-		fireCreateEvent(newGo.getId());
+		//fireCreateEvent(newGo.getId());
 		
 		return this;
 	}
@@ -197,7 +197,7 @@ public class GraphicObjectHandlerImpl implements GraphicObjectHandler {
 		
 		graphicMessage.addDeleteEvent(graphicObjectId);
 		objects.remove(graphicObjectId);
-		fireDeleteEvent(graphicObjectId);
+		//fireDeleteEvent(graphicObjectId);
 		return this;
 	}
 	
@@ -214,7 +214,7 @@ public class GraphicObjectHandlerImpl implements GraphicObjectHandler {
 		GraphicObject newGo = GraphicObjectFactory.createPoint(nikName, room, loc);
 		graphicMessage.addCreateEvent(newGo);
 		objects.put(newGo.getId(), newGo);
-		fireCreateEvent(newGo.getId());
+		//fireCreateEvent(newGo.getId());
 		return this;
 	}
 	
@@ -231,7 +231,7 @@ public class GraphicObjectHandlerImpl implements GraphicObjectHandler {
 		GraphicObject newGo = GraphicObjectFactory.createLine(nikName, room, locs);
 		graphicMessage.addCreateEvent(newGo);
 		objects.put(newGo.getId(), newGo);
-		fireCreateEvent(newGo.getId());
+		//fireCreateEvent(newGo.getId());
 		return this;
 	}
 	
@@ -248,7 +248,7 @@ public class GraphicObjectHandlerImpl implements GraphicObjectHandler {
 		GraphicObject newGo = GraphicObjectFactory.createPolygon(nikName, room, locs);
 		graphicMessage.addCreateEvent(newGo);
 		objects.put(newGo.getId(), newGo);
-		fireCreateEvent(newGo.getId());
+		//fireCreateEvent(newGo.getId());
 		return this;
 	}
 	
