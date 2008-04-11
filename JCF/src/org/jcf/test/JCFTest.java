@@ -10,6 +10,7 @@ import org.jcf.JCFMultiUserChat;
 import org.jcf.graphicMessage.GraphicMessage;
 import org.jcf.graphicMessage.Id;
 import org.jcf.graphicMessage.Location;
+import org.jcf.graphicMessage.LocationImpl;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 
@@ -23,7 +24,7 @@ public class JCFTest extends TestCase {
 	
 	JCFConnection con2;
 	JCFMultiUserChat muc2;
-	String jabberServer = "172.16.162.128";
+	String jabberServer = "joccis";
 
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#setUp()
@@ -77,10 +78,10 @@ public class JCFTest extends TestCase {
 		muc.getGraphicObjectHandler().createNewGraphicMessage();
 		
 		ArrayList<Location> list = new ArrayList<Location>();
-		list.add(new Location(5,1));
+		list.add(new LocationImpl(5,1));
 		
-		muc.getGraphicObjectHandler().createPointObject(new Location(1,1))
-		.createPointObject(new Location(2,1))
+		muc.getGraphicObjectHandler().createPointObject(new LocationImpl(1,1))
+		.createPointObject(new LocationImpl(2,1))
 		.createLineObject(list)
 		.createPolygonObject(list);
 		

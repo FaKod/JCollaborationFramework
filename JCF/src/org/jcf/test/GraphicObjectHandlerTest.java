@@ -4,18 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import junit.framework.Assert;
+import junit.framework.TestCase;
+
 import org.jcf.GraphicObjectEventListener;
 import org.jcf.GraphicObjectHandler;
 import org.jcf.JCFFactory;
 import org.jcf.graphicMessage.Event;
 import org.jcf.graphicMessage.GraphicMessage;
-import org.jcf.graphicMessage.GraphicObjectFactory;
 import org.jcf.graphicMessage.GraphicObject;
+import org.jcf.graphicMessage.GraphicObjectFactory;
 import org.jcf.graphicMessage.Id;
 import org.jcf.graphicMessage.Location;
-
-import junit.framework.Assert;
-import junit.framework.TestCase;
+import org.jcf.graphicMessage.LocationImpl;
 
 
 public class GraphicObjectHandlerTest extends TestCase {
@@ -43,8 +44,8 @@ public class GraphicObjectHandlerTest extends TestCase {
 		goh2.addListener(new ListenerTest());
 		
 		GraphicMessage gm = goh.createNewGraphicMessage();
-		gm.addCreateEvent(GraphicObjectFactory.createPoint("nikname2", "room2", new Location(1,1)));
-		gm.addCreateEvent(GraphicObjectFactory.createPoint("nikname2", "room2", new Location(2,1)));
+		gm.addCreateEvent(GraphicObjectFactory.createPoint("nikname2", "room2", new LocationImpl(1,1)));
+		gm.addCreateEvent(GraphicObjectFactory.createPoint("nikname2", "room2", new LocationImpl(2,1)));
 		goh2.processGraphicMessage(gm);	
 		assertEquals(2, goh2.getIds().size());
 		
@@ -69,10 +70,10 @@ public class GraphicObjectHandlerTest extends TestCase {
 		goh.createNewGraphicMessage();
 		
 		ArrayList<Location> list = new ArrayList<Location>();
-		list.add(new Location(5,1));
+		list.add(new LocationImpl(5,1));
 		
-		goh.createPointObject(new Location(1,1))
-		.createPointObject(new Location(2,1))
+		goh.createPointObject(new LocationImpl(1,1))
+		.createPointObject(new LocationImpl(2,1))
 		.createLineObject(list)
 		.createPolygonObject(list);
 		
@@ -101,7 +102,7 @@ public class GraphicObjectHandlerTest extends TestCase {
 		
 		for(Id id: ar) {
 			list = new ArrayList<Location>();
-			list.add(new Location(5,1));
+			list.add(new LocationImpl(5,1));
 			goh.moveGraphicObject(list, id);
 		}
 		
