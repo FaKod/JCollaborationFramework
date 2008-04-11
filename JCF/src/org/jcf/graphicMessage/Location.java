@@ -32,33 +32,33 @@ public class Location implements Serializable {
 	/**
 	 * longitude location
 	 */
-	private long lon;
+	private double lon;
 	
 	/**
 	 * latitude location
 	 */
-	private long lat;
+	private double lat;
 	
 	/**
 	 * creates Location with the given parameters
 	 * @param lon longitude
 	 * @param lat latitude
 	 */
-	public Location(long lon, long lat) {
+	public Location(double lon, double lat) {
 		this.lat = lat;
 		this.lon = lon;
 	}
 	
-	public long getLon() {
+	public double getLon() {
 		return lon;
 	}
-	public void setLon(long lon) {
+	public void setLon(double lon) {
 		this.lon = lon;
 	}
-	public long getLat() {
+	public double getLat() {
 		return lat;
 	}
-	public void setLat(long lat) {
+	public void setLat(double lat) {
 		this.lat = lat;
 	}
 	
