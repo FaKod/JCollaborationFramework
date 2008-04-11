@@ -24,6 +24,7 @@ import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Packet;
 import org.jivesoftware.smackx.Form;
+import org.jivesoftware.smackx.muc.InvitationRejectionListener;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.springframework.util.Assert;
 
@@ -60,7 +61,12 @@ public class JCFMultiUserChatImpl implements JCFMultiUserChat {
 	/**
 	 * store for the listener
 	 */
-	private List<JCFMessageListener> listener;
+	private List<JCFMessageListener> messageListener;
+	
+	/**
+	 * store for invitation rejection listener
+	 */
+	private List<MUCInvitationRejectionListener> invitationRejectionListener;
 	
 	/**
 	 * dont use this
@@ -78,7 +84,8 @@ public class JCFMultiUserChatImpl implements JCFMultiUserChat {
 		Assert.notNull(jCFConnection);
 		
 		this.jCFConnection = jCFConnection;
-		listener = new ArrayList<JCFMessageListener>();
+		messageListener = new ArrayList<JCFMessageListener>();
+		invitationRejectionListener = new ArrayList<MUCInvitationRejectionListener>();
 	}
 	
 	/* (non-Javadoc)
@@ -142,7 +149,16 @@ public class JCFMultiUserChatImpl implements JCFMultiUserChat {
 	 */
 	public void addListener(JCFMessageListener l) {
 		Assert.notNull(l);
-		listener.add(l);
+		messageListener.add(l);
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see org.jcf.JCFMultiUserChat#removeListener(org.jcf.JCFMessageListener)
+	 */
+	public void removeListener(JCFMessageListener l) {
+		Assert.notNull(l);
+		messageListener.remove(l);
 	}
 	
 	/*
@@ -190,7 +206,8 @@ public class JCFMultiUserChatImpl implements JCFMultiUserChat {
 	}
 	
 	/**
-	 * adding listener to the instance of Multi User Chat. GraphicMessages will be processed by the created instance of GraphicMessage
+	 * adding listener to the instance of Multi User Chat. 
+	 * GraphicMessages will be processed by the created instance of GraphicMessage
 	 * handler.
 	 */
 	private void addListener() {
@@ -199,15 +216,23 @@ public class JCFMultiUserChatImpl implements JCFMultiUserChat {
 				Message message = (Message) packet;
 				GraphicMessage gm = (GraphicMessage) message.getProperty(new String(messagePropertyKeyWord));
 				if(gm!=null)
-					for(JCFMessageListener l :listener ) {
+					for(JCFMessageListener l :messageListener ) {
 						getGraphicObjectHandler().processGraphicMessage(gm);
 						l.receivedGraphicMessage(gm);
 					}	
-				for(JCFMessageListener l :listener ) {
+				for(JCFMessageListener l :messageListener ) {
 					l.receivedMessage(message.getBody());
 				}
 			}
 		});
+		
+		multiUserChat.addInvitationRejectionListener(new InvitationRejectionListener() {
+	          public void invitationDeclined(String invitee, String reason) {
+	              for(MUCInvitationRejectionListener l : invitationRejectionListener) {
+	            	  l.invitationDeclined(invitee, reason);
+	              }
+	          }
+	      });
 	}
 
 	/*
@@ -234,6 +259,24 @@ public class JCFMultiUserChatImpl implements JCFMultiUserChat {
 		if(multiUserChat==null)
 			throw new JCFException("create or join room first");
 		multiUserChat.invite(user, reason);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.jcf.JCFMultiUserChat#addInvitationRejectionListener(org.jcf.MUCInvitationRejectionListener)
+	 */
+	public void addMUCInvitationRejectionListener(MUCInvitationRejectionListener l) {
+		Assert.notNull(l);
+		invitationRejectionListener.add(l);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.jcf.JCFMultiUserChat#removeMUCInvitationRejectionListener(org.jcf.MUCInvitationRejectionListener)
+	 */
+	public void removeMUCInvitationRejectionListener(MUCInvitationRejectionListener l) {
+		Assert.notNull(l);
+		invitationRejectionListener.remove(l);
 	}
 	
 }

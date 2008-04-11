@@ -51,6 +51,12 @@ public interface JCFMultiUserChat {
 	void addListener(JCFMessageListener l);
 	
 	/**
+	 * remove the listener
+	 * @param l instance of listener
+	 */
+	public void removeListener(JCFMessageListener l);
+	
+	/**
 	 * sends message to room without using the GeographicMessage stored in the instance of GraphicObjectHandler
 	 * @param body body of the message
 	 */
@@ -70,9 +76,21 @@ public interface JCFMultiUserChat {
 	public JCFConnection getJCFConnection();
 	
 	/**
-	 * invote user to this room
+	 * invite user to this room
 	 * @param user user name
 	 * @param reason reason for this invitation
 	 */
 	public void invite(String user, String reason);
+	
+	/**
+	 * this listener is called if a user rejects the invitation
+	 * @param l instance of InvitationRejectionListener
+	 */
+	public void addMUCInvitationRejectionListener(MUCInvitationRejectionListener l);
+	
+	/**
+	 * remove listener
+	 * @param l instance of the listener
+	 */
+	public void removeMUCInvitationRejectionListener(MUCInvitationRejectionListener l);
 }
