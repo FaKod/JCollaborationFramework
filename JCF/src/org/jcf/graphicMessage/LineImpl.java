@@ -22,7 +22,7 @@ package org.jcf.graphicMessage;
  * @author FaKod
  *
  */
-public class LineImpl extends GraphicObjectImpl implements Line {
+class LineImpl extends GraphicObjectImpl implements Line {
 	
 	/**
 	 * Version ID

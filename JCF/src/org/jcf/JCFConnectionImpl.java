@@ -15,8 +15,16 @@
  */
 package org.jcf;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smackx.muc.InvitationListener;
+import org.jivesoftware.smackx.muc.MultiUserChat;
+import org.jivesoftware.smackx.muc.RoomInfo;
 import org.springframework.util.Assert;
 
 /**
@@ -24,7 +32,7 @@ import org.springframework.util.Assert;
  * @author FaKod
  *
  */
-public class JCFConnectionImpl implements JCFConnection {
+class JCFConnectionImpl implements JCFConnection {
 	
 	/**
 	 * parameter use for connection
@@ -33,6 +41,11 @@ public class JCFConnectionImpl implements JCFConnection {
 	private String userName;
 	private String passwd;
 	private XMPPConnection xMPPconnection;
+	
+	/**
+	 * store for the invitation listener
+	 */
+	List<MUCInvitationListener> invitationListener;
 	
 	/**
 	 * dont use this
@@ -54,6 +67,8 @@ public class JCFConnectionImpl implements JCFConnection {
 		this.jabberServer = jabberServer;
 		this.userName = userName;
 		this.passwd = passwd;
+		
+		invitationListener = new ArrayList<MUCInvitationListener>();
 	}
 	
 	/* (non-Javadoc)
@@ -67,6 +82,17 @@ public class JCFConnectionImpl implements JCFConnection {
 		} catch (XMPPException e) {
 			throw new JCFException("cannot connect to " + jabberServer + " with usename " + userName + " and password " + passwd, e);
 		}
+		
+		MultiUserChat.addInvitationListener(xMPPconnection, new InvitationListener() {
+			public void invitationReceived(XMPPConnection conn, String room,
+					String inviter, String reason, String password,
+					Message message) {
+				for(MUCInvitationListener l : invitationListener) {
+					l.invitationReceived(room, inviter, reason, password, message.getBody());
+				}
+				
+			}
+	      });
 	}
 	
 	/*
@@ -78,6 +104,7 @@ public class JCFConnectionImpl implements JCFConnection {
 			throw new JCFException("Call connect first");
 		
 		xMPPconnection.disconnect();
+		xMPPconnection = null;
 	}
 
 	/* (non-Javadoc)
@@ -106,5 +133,69 @@ public class JCFConnectionImpl implements JCFConnection {
 	 */
 	public XMPPConnection getXMPPconnection() {
 		return xMPPconnection;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see org.jcf.JCFConnection#addMUCInvitationListener(org.jcf.MUCInvitationListener)
+	 */
+	public void addMUCInvitationListener(MUCInvitationListener l) {
+		Assert.notNull(l);
+		invitationListener.add(l);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.jcf.JCFConnection#removeMUCInvitationListener(org.jcf.MUCInvitationListener)
+	 */
+	public void removeMUCInvitationListener(MUCInvitationListener l) {
+		Assert.notNull(l);
+		invitationListener.remove(l);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.jcf.JCFConnection#declineMUCInvitation(java.lang.String, java.lang.String, java.lang.String)
+	 */
+	public void declineMUCInvitation(String room, String inviter, String reason) {
+		if(xMPPconnection==null)
+			throw new JCFException("call connect first");
+		MultiUserChat.decline(xMPPconnection, room, inviter, reason);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.jcf.JCFConnection#isMUCServiceEnabled(java.lang.String)
+	 */
+	public boolean isMUCServiceEnabled(String user) {
+		if(xMPPconnection==null)
+			throw new JCFException("call connect first");
+		return MultiUserChat.isServiceEnabled(xMPPconnection, user);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.jcf.JCFConnection#getJoinedRooms(java.lang.String)
+	 */
+	public Iterator<String> getJoinedRooms(String user) {
+		if(xMPPconnection==null)
+			throw new JCFException("call connect first");
+		return MultiUserChat.getJoinedRooms(xMPPconnection, user);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.jcf.JCFConnection#getMUCRoomInfo(java.lang.String)
+	 */
+	public MUCRoomInfo getMUCRoomInfo(String room) {
+		if(xMPPconnection==null)
+			throw new JCFException("call connect first");
+		RoomInfo ri;
+		try {
+			ri = MultiUserChat.getRoomInfo(xMPPconnection, room);
+		} catch (XMPPException e) {
+			throw new JCFException("error in getMUCRoomInfo", e);
+		}
+		return new MUCRoomInfoImpl(ri);
 	}
 }

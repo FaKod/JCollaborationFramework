@@ -27,7 +27,7 @@ import org.springframework.util.Assert;
  * @author FaKod
  *
  */
-public abstract class GraphicObjectImpl implements Serializable, GraphicObject {
+abstract class GraphicObjectImpl implements Serializable, GraphicObject {
 
 	/**
 	 * unique id of graphical object

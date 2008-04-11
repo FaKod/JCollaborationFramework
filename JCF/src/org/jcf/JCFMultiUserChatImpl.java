@@ -36,7 +36,7 @@ import org.springframework.util.Assert;
  * @author FaKod
  *
  */
-public class JCFMultiUserChatImpl implements JCFMultiUserChat {
+class JCFMultiUserChatImpl implements JCFMultiUserChat {
 	
 	/**
 	 * keyword for property inside an message

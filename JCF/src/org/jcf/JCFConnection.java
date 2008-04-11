@@ -15,6 +15,9 @@
  */
 package org.jcf;
 
+import java.util.Iterator;
+
+
 /**
  * Connection class to a jabber server
  * @author FaKod
@@ -46,5 +49,46 @@ public interface JCFConnection {
 	 * @return the passwd
 	 */
 	String getPasswd();
+	
+	/**
+	 * add the invitation listener
+	 * @param l the listener instance
+	 */
+	void addMUCInvitationListener(MUCInvitationListener l);
+	
+	/**
+	 * removes the invitation listener
+	 * @param l the listener instance
+	 */
+	void removeMUCInvitationListener(MUCInvitationListener l);
+	
+	/**
+	 * decline an invitation
+	 * @param room romm nem
+	 * @param inviter inviter name
+	 * @param reason reason of declination
+	 */
+	void declineMUCInvitation(String room, String inviter, String reason);
+	
+	/**
+	 * has client for User user MUC capability
+	 * @param user user name
+	 * @return
+	 */
+	boolean isMUCServiceEnabled(String user);
+	
+	/**
+	 * Returns the rooms the user is in
+	 * @param user user name
+	 * @return Iterator instance
+	 */
+	Iterator<String> getJoinedRooms(String user);
+	
+	/**
+	 * returns a instance of room info
+	 * @param room the room name
+	 * @return MCURoomInfo
+	 */
+	MUCRoomInfo getMUCRoomInfo(String room);
 
 }

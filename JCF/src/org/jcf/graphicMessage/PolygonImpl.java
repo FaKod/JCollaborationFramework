@@ -21,7 +21,7 @@ package org.jcf.graphicMessage;
  * @author FaKod
  *
  */
-public class PolygonImpl extends GraphicObjectImpl implements Polygon {
+class PolygonImpl extends GraphicObjectImpl implements Polygon {
 	
 	/**
 	 * Version ID

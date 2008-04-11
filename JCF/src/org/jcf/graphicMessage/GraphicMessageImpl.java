@@ -26,7 +26,7 @@ import org.springframework.util.Assert;
  * @author FaKod
  *
  */
-public class GraphicMessageImpl implements GraphicMessage, Serializable {
+class GraphicMessageImpl implements GraphicMessage, Serializable {
 	
 	/**
 	 * Version ID

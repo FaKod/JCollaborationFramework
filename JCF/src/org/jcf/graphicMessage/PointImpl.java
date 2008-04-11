@@ -21,7 +21,7 @@ package org.jcf.graphicMessage;
  * @author FaKod
  *
  */
-public class PointImpl extends GraphicObjectImpl implements Point {
+class PointImpl extends GraphicObjectImpl implements Point {
 	
 	/**
 	 * Version ID
