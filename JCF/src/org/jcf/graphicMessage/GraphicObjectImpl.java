@@ -40,6 +40,11 @@ public abstract class GraphicObjectImpl implements Serializable, GraphicObject {
 	private List<Location> locations;
 	
 	/**
+	 * custom GraphicObjectProperty
+	 */
+	GraphicObjectProperty graphicObjectProperty;
+	
+	/**
 	 * ctor to use with unique id
 	 * @param id
 	 */
@@ -97,5 +102,21 @@ public abstract class GraphicObjectImpl implements Serializable, GraphicObject {
 			setLocations(locations);
 		else
 			locations.addAll(locations);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.jcf.graphicMessage.GraphicObject#getGraphicObjectProperty()
+	 */
+	public GraphicObjectProperty getGraphicObjectProperty() {
+		return graphicObjectProperty;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.jcf.graphicMessage.GraphicObject#setGraphicObjectProperty(org.jcf.graphicMessage.GraphicObjectProperty)
+	 */
+	public void setGraphicObjectProperty(GraphicObjectProperty graphicObjectProperty) {
+		this.graphicObjectProperty = graphicObjectProperty;
 	}
 }
