@@ -82,10 +82,30 @@ public class Id implements Serializable {
 		id = id + 1;
 		return this;
 	}
-	
-	/*
+
+	/**
 	 * (non-Javadoc)
 	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return nikName + ":" + id;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((nikName == null) ? 0 : nikName.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -97,19 +117,14 @@ public class Id implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		final Id other = (Id) obj;
-		if((other.id == this.id) && (other.nikName.equals(this.nikName)) )
-			return true;
-		return false;
-	}
-
-	/**
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return nikName + ":" + id;
+		if (id != other.id)
+			return false;
+		if (nikName == null) {
+			if (other.nikName != null)
+				return false;
+		} else if (!nikName.equals(other.nikName))
+			return false;
+		return true;
 	}
 
 }
