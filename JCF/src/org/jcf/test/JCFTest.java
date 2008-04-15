@@ -1,21 +1,25 @@
 package org.jcf.test;
 
 import java.util.ArrayList;
+import java.util.Collection;
+
+import junit.framework.TestCase;
 
 import org.jcf.GraphicObjectEventListener;
 import org.jcf.JCFConnection;
 import org.jcf.JCFFactory;
+import org.jcf.JCFForm;
 import org.jcf.JCFMessageListener;
 import org.jcf.JCFMultiUserChat;
+import org.jcf.JCFReportedDataFromSearch;
+import org.jcf.JCFRow;
+import org.jcf.JCFUserSearchManager;
 import org.jcf.graphicMessage.GraphicMessage;
 import org.jcf.graphicMessage.Id;
 import org.jcf.graphicMessage.Location;
 import org.jcf.graphicMessage.LocationImpl;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
-
-
-import junit.framework.TestCase;
 
 public class JCFTest extends TestCase {
 	
@@ -24,7 +28,7 @@ public class JCFTest extends TestCase {
 	
 	JCFConnection con2;
 	JCFMultiUserChat muc2;
-	String jabberServer = "joccis";
+	String jabberServer = "172.16.162.128";
 
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#setUp()
@@ -86,9 +90,28 @@ public class JCFTest extends TestCase {
 		.createPolygonObject(list);
 		
 		muc.sendMessage("sendMessage");
+	
+	}
+	
+	public void testUserSearch() {
+		con = JCFFactory.newJCFConnection(jabberServer, "test", "test");
+		con.connect();
 		
-		Thread.sleep(2000)
-;		
+		JCFUserSearchManager usm = con.getJCFUserSearchManager();
+		JCFForm searchForm = usm.getSearchForm("search."+jabberServer);
+		
+		JCFForm answerForm = searchForm.createAnswerForm();
+		answerForm.setAnswer("search", "*");
+		answerForm.setAnswer("Username", true);
+		answerForm.setAnswer("Name", true);
+		answerForm.setAnswer("Email", true);
+		
+		JCFReportedDataFromSearch rd = usm.getSearchResults(answerForm, "search."+jabberServer);
+		Collection<JCFRow> rows = rd.getRows();
+		for(JCFRow row : rows) {
+			Collection<String> jids = row.getValues("jid");
+			System.out.println("User: " + jids.toArray()[0]);
+		}
 	}
 	
 	/**
