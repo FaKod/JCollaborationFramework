@@ -101,7 +101,7 @@ abstract class GraphicObjectImpl implements Serializable, GraphicObject {
 		if(this.locations==null)
 			setLocations(locations);
 		else
-			locations.addAll(locations);
+			this.locations.addAll(locations);
 	}
 
 	/*
