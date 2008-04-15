@@ -38,6 +38,7 @@ public class JCFUserSearchManagerImpl implements JCFUserSearchManager {
 	 */
 	JCFUserSearchManagerImpl(UserSearchManager userSearchManager) {
 		Assert.notNull(userSearchManager);
+		this.userSearchManager = userSearchManager;
 	}
 
 	/*
