@@ -90,5 +90,12 @@ public interface JCFConnection {
 	 * @return MCURoomInfo
 	 */
 	MUCRoomInfo getMUCRoomInfo(String room);
+	
+	/**
+	 * Returns the roster for the user logged into the server. If the user has not yet
+     * logged into the server (or if the user is logged in anonymously), this method will return
+	 * @return the user's roster, or <tt>null</tt> if the user has not logged in yet.
+	 */
+	JCFRoster getRoster();
 
 }

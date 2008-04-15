@@ -48,6 +48,11 @@ class JCFConnectionImpl implements JCFConnection {
 	List<MUCInvitationListener> invitationListener;
 	
 	/**
+	 * Roster stuff
+	 */
+	private JCFRoster jCFRoster;
+	
+	/**
 	 * dont use this
 	 */
 	@SuppressWarnings("unused")
@@ -197,5 +202,17 @@ class JCFConnectionImpl implements JCFConnection {
 			throw new JCFException("error in getMUCRoomInfo", e);
 		}
 		return new MUCRoomInfoImpl(ri);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.jcf.JCFConnection#getRoster()
+	 */
+	public JCFRoster getRoster() {
+		if(xMPPconnection==null)
+			throw new JCFException("call connect first");
+		if(jCFRoster==null)
+			jCFRoster = new JCFRosterImpl(xMPPconnection.getRoster());
+		return jCFRoster;
 	}
 }
