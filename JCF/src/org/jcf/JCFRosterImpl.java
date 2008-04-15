@@ -3,6 +3,7 @@ package org.jcf;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.jivesoftware.smack.Roster;
@@ -24,8 +25,14 @@ import org.springframework.util.Assert;
  */
 public class JCFRosterImpl implements JCFRoster {
 	
+	/**
+	 * used for delegation
+	 */
 	Roster roster;
 	
+	/**
+	 * listener instances
+	 */
 	List<JCFRosterListener> rosterListener;
 	
 	/**
@@ -248,6 +255,20 @@ public class JCFRosterImpl implements JCFRoster {
 	public void setSubscriptionMode(JCFSubscriptionMode subscriptionMode) {
 		Assert.notNull(subscriptionMode);
 		roster.setSubscriptionMode(SubscriptionMode.valueOf(subscriptionMode.toString()));
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.jcf.JCFRoster#getPresences(java.lang.String)
+	 */
+	public Iterator<JCFPresence> getPresences(String user) {
+		Assert.hasLength(user);
+		Iterator<Presence> i = roster.getPresences(user);
+		List<JCFPresence> l = new ArrayList<JCFPresence>();
+		while(i.hasNext()) {
+			l.add(new JCFPresenceImpl(i.next()));
+		}
+		return l.iterator();
 	}
 
 }

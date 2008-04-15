@@ -1,6 +1,7 @@
 package org.jcf;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 
 /**
@@ -154,7 +155,7 @@ public interface JCFRoster {
      *         or an unavailable presence if the user is offline or if no presence information
      *         is available.
      */
-    //public Iterator<JCFPresence> getPresences(String user);
+    public Iterator<JCFPresence> getPresences(String user);
     
     /**
      * Returns the subscription processing mode, which dictates what action
