@@ -25,6 +25,7 @@ import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smackx.muc.InvitationListener;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.muc.RoomInfo;
+import org.jivesoftware.smackx.search.UserSearchManager;
 import org.springframework.util.Assert;
 
 /**
@@ -214,5 +215,15 @@ class JCFConnectionImpl implements JCFConnection {
 		if(jCFRoster==null)
 			jCFRoster = new JCFRosterImpl(xMPPconnection.getRoster());
 		return jCFRoster;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see org.jcf.JCFConnection#getJCFUserSearchManager()
+	 */
+	public JCFUserSearchManager getJCFUserSearchManager() {
+		if(xMPPconnection==null)
+			throw new JCFException("call connect first");
+		return new JCFUserSearchManagerImpl(new UserSearchManager(xMPPconnection));
 	}
 }

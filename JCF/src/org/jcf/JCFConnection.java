@@ -97,5 +97,11 @@ public interface JCFConnection {
 	 * @return the user's roster, or <tt>null</tt> if the user has not logged in yet.
 	 */
 	JCFRoster getRoster();
+	
+	/**
+	 * gets a JCFUserSearchManager for this connection
+	 * @return new instance of JCFUserSearchManager
+	 */
+	JCFUserSearchManager getJCFUserSearchManager();
 
 }
