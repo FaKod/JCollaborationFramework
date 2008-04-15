@@ -98,7 +98,7 @@ abstract class GraphicObjectImpl implements Serializable, GraphicObject {
 	 */
 	public void addAllLocation(List<Location> locations) {
 		Assert.notNull(locations);
-		if(locations==null)
+		if(this.locations==null)
 			setLocations(locations);
 		else
 			locations.addAll(locations);
