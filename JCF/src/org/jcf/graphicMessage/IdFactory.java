@@ -41,10 +41,13 @@ abstract class IdFactory {
 		Assert.hasLength(room);
 		Assert.hasLength(nikName);
 		
-		Id id = ids.get(room);
-		if(id==null) {
-			id = new Id(nikName);
-			ids.put(room, id);
+		Id id;
+		synchronized(ids) {
+			id = ids.get(room);
+			if(id==null) {
+				id = new Id(nikName);
+				ids.put(room, id);
+			}
 		}
 		return new Id(id.inc());
 	}
