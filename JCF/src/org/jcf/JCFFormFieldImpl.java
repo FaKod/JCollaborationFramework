@@ -2,6 +2,7 @@ package org.jcf;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -90,7 +91,7 @@ public class JCFFormFieldImpl implements JCFFormField {
 	 */
 	public Collection<JCFOption> getOptions() {
 		Iterator<Option> i = formField.getOptions();
-		List<JCFOption> l = new ArrayList<JCFOption>();
+		List<JCFOption> l = Collections.synchronizedList(new ArrayList<JCFOption>());
 		while(i.hasNext())
 			l.add(new JCFOptionImpl(i.next()));
 		return l;
@@ -110,7 +111,7 @@ public class JCFFormFieldImpl implements JCFFormField {
 	 */
 	public Collection<String> getValues() {
 		Iterator<String> i = formField.getValues();
-		List<String> l = new ArrayList<String>();
+		List<String> l = Collections.synchronizedList(new ArrayList<String>());
 		while(i.hasNext())
 			l.add(new String(i.next()));
 		return l;

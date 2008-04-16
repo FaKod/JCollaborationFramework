@@ -16,6 +16,7 @@
 package org.jcf;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,8 +78,8 @@ public class GraphicObjectHandlerImpl implements GraphicObjectHandler {
 		
 		this.room = room;
 		this.nikName = nikName;
-		objects = new HashMap<Id, GraphicObject>();
-		listener = new ArrayList<GraphicObjectEventListener>();
+		objects = Collections.synchronizedMap(new HashMap<Id, GraphicObject>());
+		listener = Collections.synchronizedList(new ArrayList<GraphicObjectEventListener>());
 		threadLocalGraphicalMessage = new ThreadLocal<GraphicMessage>();
 	}
 	

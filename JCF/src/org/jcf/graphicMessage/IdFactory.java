@@ -15,6 +15,7 @@
  */
 package org.jcf.graphicMessage;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +31,7 @@ abstract class IdFactory {
 	/**
 	 * id per room map
 	 */
-	private static Map<String, Id> ids = new HashMap<String, Id>();
+	private static Map<String, Id> ids = Collections.synchronizedMap(new HashMap<String, Id>());
 	
 	/**
 	 * get new id (as a new Object) for an existing or new room

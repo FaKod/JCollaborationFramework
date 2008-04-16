@@ -2,6 +2,7 @@ package org.jcf;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class JCFReportedDataFromSearchImpl implements JCFReportedDataFromSearch 
 	 */
 	public Collection<JCFColumn> getColumns() {
 		Iterator<Column> i = reportedData.getColumns();
-		List<JCFColumn> l = new ArrayList<JCFColumn>();
+		List<JCFColumn> l = Collections.synchronizedList(new ArrayList<JCFColumn>());
 		while(i.hasNext())
 			l.add(new JCFColumnImpl(i.next()));
 		return l;
@@ -70,7 +71,7 @@ public class JCFReportedDataFromSearchImpl implements JCFReportedDataFromSearch 
 	 */
 	public Collection<JCFRow> getRows() {
 		Iterator<Row> i = reportedData.getRows();
-		List<JCFRow> l = new ArrayList<JCFRow>();
+		List<JCFRow> l = Collections.synchronizedList(new ArrayList<JCFRow>());
 		while(i.hasNext())
 			l.add(new JCFRowImpl(i.next()));
 		return l;

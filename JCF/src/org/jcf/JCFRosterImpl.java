@@ -48,7 +48,7 @@ public class JCFRosterImpl implements JCFRoster {
 	JCFRosterImpl(Roster roster) {
 		Assert.notNull(roster);
 		this.roster = roster;	
-		rosterListener = new ArrayList<JCFRosterListener>();
+		rosterListener = Collections.synchronizedList(new ArrayList<JCFRosterListener>());
 		
 		/**
 		 * use original roster
@@ -124,7 +124,7 @@ public class JCFRosterImpl implements JCFRoster {
 	 */
 	public Collection<JCFRosterEntry> getEntries() {
 		Collection<RosterEntry> c = roster.getEntries();
-		List<JCFRosterEntry> cj = new ArrayList<JCFRosterEntry>();
+		List<JCFRosterEntry> cj = Collections.synchronizedList(new ArrayList<JCFRosterEntry>());
 		for(RosterEntry r : c)
 			cj.add(new JCFRosterEntryImpl(r));
 		return Collections.unmodifiableCollection(cj);
@@ -166,7 +166,7 @@ public class JCFRosterImpl implements JCFRoster {
 	 */
 	public Collection<JCFRosterGroup> getGroups() {
 		Collection<RosterGroup> c = roster.getGroups();
-		List<JCFRosterGroup> cj = new ArrayList<JCFRosterGroup>();
+		List<JCFRosterGroup> cj = Collections.synchronizedList(new ArrayList<JCFRosterGroup>());
 		for(RosterGroup r : c)
 			cj.add(new JCFRosterGroupImpl(r));
 		return Collections.unmodifiableList(cj);
@@ -204,7 +204,7 @@ public class JCFRosterImpl implements JCFRoster {
 	 */
 	public Collection<JCFRosterEntry> getUnfiledEntries() {
 		Collection<RosterEntry> c = roster.getUnfiledEntries();
-		List<JCFRosterEntry> cj = new ArrayList<JCFRosterEntry>();
+		List<JCFRosterEntry> cj = Collections.synchronizedList(new ArrayList<JCFRosterEntry>());
 		for(RosterEntry r : c)
 			cj.add(new JCFRosterEntryImpl(r));
 		return Collections.unmodifiableCollection(cj);
@@ -264,7 +264,7 @@ public class JCFRosterImpl implements JCFRoster {
 	public Collection<JCFPresence> getPresences(String user) {
 		Assert.hasLength(user);
 		Iterator<Presence> i = roster.getPresences(user);
-		List<JCFPresence> l = new ArrayList<JCFPresence>();
+		List<JCFPresence> l = Collections.synchronizedList(new ArrayList<JCFPresence>());
 		while(i.hasNext()) {
 			l.add(new JCFPresenceImpl(i.next()));
 		}

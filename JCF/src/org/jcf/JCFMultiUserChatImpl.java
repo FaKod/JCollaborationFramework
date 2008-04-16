@@ -16,6 +16,7 @@
 package org.jcf;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.jcf.graphicMessage.GraphicMessage;
@@ -84,8 +85,8 @@ class JCFMultiUserChatImpl implements JCFMultiUserChat {
 		Assert.notNull(jCFConnection);
 		
 		this.jCFConnection = jCFConnection;
-		messageListener = new ArrayList<JCFMessageListener>();
-		invitationRejectionListener = new ArrayList<MUCInvitationRejectionListener>();
+		messageListener = Collections.synchronizedList(new ArrayList<JCFMessageListener>());
+		invitationRejectionListener = Collections.synchronizedList(new ArrayList<MUCInvitationRejectionListener>());
 	}
 	
 	/* (non-Javadoc)

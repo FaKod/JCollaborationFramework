@@ -70,7 +70,7 @@ public class JCFRosterGroupImpl implements JCFRosterGroup {
 	 * @see org.jcf.JCFRosterGroup#getEntries()
 	 */
 	public Collection<JCFRosterEntry> getEntries() {
-		List<JCFRosterEntry> cj = new ArrayList<JCFRosterEntry>();
+		List<JCFRosterEntry> cj = Collections.synchronizedList(new ArrayList<JCFRosterEntry>());
 		Collection<RosterEntry> cr = rosterGroup.getEntries();
 		for(RosterEntry r : cr)
 			cj.add(new JCFRosterEntryImpl(r));

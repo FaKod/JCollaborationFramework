@@ -2,6 +2,7 @@ package org.jcf;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class JCFReportedDataFromDataFormImpl implements JCFReportedDataFromDataF
 	 */
 	public Collection<JCFFormField> getFields() {
 		Iterator<FormField> i =  reportedData.getFields();
-		List<JCFFormField> l = new ArrayList<JCFFormField>();
+		List<JCFFormField> l = Collections.synchronizedList(new ArrayList<JCFFormField>());
 		while(i.hasNext())
 			l.add(new JCFFormFieldImpl(i.next()));
 		return l;

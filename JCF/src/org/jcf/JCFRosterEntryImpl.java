@@ -43,7 +43,7 @@ public class JCFRosterEntryImpl implements JCFRosterEntry {
 	 */
 	public Collection<JCFRosterGroup> getGroups() {
 		Collection<RosterGroup> c = rosterEntry.getGroups();
-		List<JCFRosterGroup> cj = new ArrayList<JCFRosterGroup>();
+		List<JCFRosterGroup> cj = Collections.synchronizedList(new ArrayList<JCFRosterGroup>());
 		for(RosterGroup r : c)
 			cj.add(new JCFRosterGroupImpl(r));
 		return Collections.unmodifiableCollection(cj);

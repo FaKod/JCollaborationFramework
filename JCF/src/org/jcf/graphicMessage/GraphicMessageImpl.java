@@ -17,6 +17,7 @@ package org.jcf.graphicMessage;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.util.Assert;
@@ -65,7 +66,7 @@ class GraphicMessageImpl implements GraphicMessage, Serializable {
 	public void addEvent(Event evt) {
 		Assert.notNull(evt);
 		if(events==null)
-			setEvents(new ArrayList<Event>());
+			setEvents(Collections.synchronizedList(new ArrayList<Event>()));
 		events.add(evt);
 		
 	}
@@ -76,7 +77,7 @@ class GraphicMessageImpl implements GraphicMessage, Serializable {
 	public void addAllEvents(List<Event> evts) {
 		Assert.notNull(evts);
 		if(events==null)
-			setEvents(new ArrayList<Event>());
+			setEvents(Collections.synchronizedList(new ArrayList<Event>()));
 		events.addAll(evts);
 	}
 	

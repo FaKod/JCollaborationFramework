@@ -2,6 +2,7 @@ package org.jcf;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -66,7 +67,7 @@ public class JCFDataFormImpl implements JCFDataForm {
 	 */
 	public Collection<JCFFormField> getFields() {
 		Iterator<FormField> i = dataForm.getFields();
-		List<JCFFormField> l = new ArrayList<JCFFormField>();
+		List<JCFFormField> l = Collections.synchronizedList(new ArrayList<JCFFormField>());
 		while(i.hasNext())
 			l.add(new JCFFormFieldImpl(i.next()));
 		return l;
@@ -78,7 +79,7 @@ public class JCFDataFormImpl implements JCFDataForm {
 	 */
 	public Collection<String> getInstructions() {
 		Iterator<String> i = dataForm.getInstructions();
-		List<String> l = new ArrayList<String>();
+		List<String> l = Collections.synchronizedList(new ArrayList<String>());
 		while(i.hasNext())
 			l.add(new String(i.next()));
 		return l;
@@ -90,7 +91,7 @@ public class JCFDataFormImpl implements JCFDataForm {
 	 */
 	public Collection<JCFReportedDataItem> getItems() {
 		Iterator<Item> i = dataForm.getItems();
-		List<JCFReportedDataItem> l = new ArrayList<JCFReportedDataItem>();
+		List<JCFReportedDataItem> l = Collections.synchronizedList(new ArrayList<JCFReportedDataItem>());
 		while(i.hasNext())
 			l.add(new JCFReportedDataItemImpl(i.next()));
 		return null;

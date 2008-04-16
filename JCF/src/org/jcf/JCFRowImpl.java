@@ -2,6 +2,7 @@ package org.jcf;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class JCFRowImpl implements JCFRow {
 	public Collection<String> getValues(String variable) {
 		Assert.hasLength(variable);
 		Iterator<String> i = row.getValues(variable);
-		List<String> l = new ArrayList<String>();
+		List<String> l = Collections.synchronizedList(new ArrayList<String>());
 		while(i.hasNext())
 			l.add(new String(i.next()));
 		return l;

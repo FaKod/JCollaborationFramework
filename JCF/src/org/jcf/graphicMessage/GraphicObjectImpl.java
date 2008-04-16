@@ -17,6 +17,7 @@ package org.jcf.graphicMessage;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.util.Assert;
@@ -89,7 +90,7 @@ abstract class GraphicObjectImpl implements Serializable, GraphicObject {
 	public void addLocation(Location loc) {
 		Assert.notNull(loc);
 		if(locations==null)
-			locations = new ArrayList<Location>();
+			locations = Collections.synchronizedList(new ArrayList<Location>());
 		locations.add(loc);
 	}
 	
