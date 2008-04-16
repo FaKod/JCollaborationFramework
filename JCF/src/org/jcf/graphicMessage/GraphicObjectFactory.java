@@ -17,6 +17,7 @@ package org.jcf.graphicMessage;
 
 import java.util.List;
 
+import org.jcf.JCFException;
 import org.springframework.util.Assert;
 
 
@@ -50,7 +51,7 @@ public abstract class GraphicObjectFactory {
 		if(go instanceof Polygon) {
 			return createPolygon(nikName,  room, locs);
 		}
-		return null;
+		throw new JCFException("Unsupported GraphicObject");
 	}
 
 	/**
