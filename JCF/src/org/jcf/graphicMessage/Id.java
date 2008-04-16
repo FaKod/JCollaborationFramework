@@ -78,7 +78,7 @@ public class Id implements Serializable {
 	/**
 	 * increments id to get the next value
 	 */
-	public Id inc() {
+	synchronized public Id inc()  {
 		id = id + 1;
 		return this;
 	}
