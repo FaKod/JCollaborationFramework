@@ -127,8 +127,8 @@ public class GraphicObjectHandlerImpl implements GraphicObjectHandler {
 			if(e instanceof Delete) {
 				Id id = ((Delete)e).getId();
 				Assert.notNull(id);
-				objects.remove(id);
-				fireDeleteEvent(id);
+				if(objects.remove(id) != null)
+					fireDeleteEvent(id);
 			}
 		}
 		for(Event e : events) {
@@ -138,7 +138,8 @@ public class GraphicObjectHandlerImpl implements GraphicObjectHandler {
 				Assert.notNull(g);
 				Assert.notNull(g.getId());
 				
-				objects.put(g.getId(), g);
+				// if there is a non null return its an unpossible update
+				Assert.isNull(objects.put(g.getId(), g));
 				fireCreateEvent(g.getId());
 			}
 		}
