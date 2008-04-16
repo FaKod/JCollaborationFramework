@@ -176,12 +176,11 @@ public class GraphicObjectHandlerImpl implements GraphicObjectHandler {
 		
 		graphicMessage.addDeleteEvent(graphicObjectId);
 		objects.remove(graphicObjectId);
-		//fireDeleteEvent(graphicObjectId);
 		
 		GraphicObject newGo = GraphicObjectFactory.create(oldGo, nikName, room, newLocations);
+		newGo.setGraphicObjectProperty(oldGo.getGraphicObjectProperty());
 		graphicMessage.addCreateEvent(newGo);
 		objects.put(newGo.getId(), newGo);
-		//fireCreateEvent(newGo.getId());
 		
 		return this;
 	}
