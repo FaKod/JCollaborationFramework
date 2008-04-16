@@ -15,7 +15,8 @@
  */
 package org.jcf;
 
-import java.util.Iterator;
+import java.util.Collection;
+
 
 
 /**
@@ -82,7 +83,7 @@ public interface JCFConnection {
 	 * @param user user name
 	 * @return Iterator instance
 	 */
-	Iterator<String> getJoinedRooms(String user);
+	Collection<String> getJoinedRooms(String user);
 	
 	/**
 	 * returns a instance of room info

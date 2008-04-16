@@ -16,6 +16,7 @@
 package org.jcf;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -184,10 +185,14 @@ class JCFConnectionImpl implements JCFConnection {
 	 * (non-Javadoc)
 	 * @see org.jcf.JCFConnection#getJoinedRooms(java.lang.String)
 	 */
-	public Iterator<String> getJoinedRooms(String user) {
+	public Collection<String> getJoinedRooms(String user) {
 		if(xMPPconnection==null)
 			throw new JCFException("call connect first");
-		return MultiUserChat.getJoinedRooms(xMPPconnection, user);
+		Iterator<String>  i = MultiUserChat.getJoinedRooms(xMPPconnection, user);
+		List<String> l = new ArrayList<String>();
+		while(i.hasNext())
+			l.add(new String(i.next()));
+		return l;
 	}
 
 	/*
