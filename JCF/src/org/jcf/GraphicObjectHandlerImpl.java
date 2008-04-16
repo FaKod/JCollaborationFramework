@@ -28,6 +28,7 @@ import org.jcf.graphicMessage.GraphicMessage;
 import org.jcf.graphicMessage.GraphicMessageFactory;
 import org.jcf.graphicMessage.GraphicObject;
 import org.jcf.graphicMessage.GraphicObjectFactory;
+import org.jcf.graphicMessage.GraphicObjectProperty;
 import org.jcf.graphicMessage.Id;
 import org.jcf.graphicMessage.Location;
 import org.springframework.util.Assert;
@@ -206,15 +207,19 @@ public class GraphicObjectHandlerImpl implements GraphicObjectHandler {
 	 */
 	public GraphicObjectHandler createPointObject(Location loc) {
 		Assert.notNull(loc);
-		
-		GraphicMessage graphicMessage = threadLocalGraphicalMessage.get();
-		if(graphicMessage==null)
-			throw new JCFException("GraphicMessage available. call createNewGraphicMessage first");
-		
-		GraphicObject newGo = GraphicObjectFactory.createPoint(nikName, room, loc);
-		graphicMessage.addCreateEvent(newGo);
-		objects.put(newGo.getId(), newGo);
-		//fireCreateEvent(newGo.getId());
+		createAndReturnPointObject(loc);
+		return this;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see org.jcf.GraphicObjectHandler#createPointObject(org.jcf.graphicMessage.Location, org.jcf.graphicMessage.GraphicObjectProperty)
+	 */
+	public GraphicObjectHandler createPointObject(Location loc,
+			GraphicObjectProperty graphicObjectProperty) {
+		Assert.notNull(loc);
+		GraphicObject g = createAndReturnPointObject(loc);
+		g.setGraphicObjectProperty(graphicObjectProperty);
 		return this;
 	}
 	
@@ -223,15 +228,19 @@ public class GraphicObjectHandlerImpl implements GraphicObjectHandler {
 	 */
 	public GraphicObjectHandler createLineObject(List<Location> locs) {
 		Assert.notNull(locs);
-		
-		GraphicMessage graphicMessage = threadLocalGraphicalMessage.get();
-		if(graphicMessage==null)
-			throw new JCFException("GraphicMessage available. call createNewGraphicMessage first");
-		
-		GraphicObject newGo = GraphicObjectFactory.createLine(nikName, room, locs);
-		graphicMessage.addCreateEvent(newGo);
-		objects.put(newGo.getId(), newGo);
-		//fireCreateEvent(newGo.getId());
+		createAndReturnLineObject(locs);
+		return this;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see org.jcf.GraphicObjectHandler#createLineObject(java.util.List, org.jcf.graphicMessage.GraphicObjectProperty)
+	 */
+	public GraphicObjectHandler createLineObject(List<Location> locs,
+			GraphicObjectProperty graphicObjectProperty) {
+		Assert.notNull(locs);
+		GraphicObject g = createAndReturnLineObject(locs);
+		g.setGraphicObjectProperty(graphicObjectProperty);
 		return this;
 	}
 	
@@ -240,15 +249,19 @@ public class GraphicObjectHandlerImpl implements GraphicObjectHandler {
 	 */
 	public GraphicObjectHandler createPolygonObject(List<Location> locs) {
 		Assert.notNull(locs);
-		
-		GraphicMessage graphicMessage = threadLocalGraphicalMessage.get();
-		if(graphicMessage==null)
-			throw new JCFException("GraphicMessage available. call createNewGraphicMessage first");
-		
-		GraphicObject newGo = GraphicObjectFactory.createPolygon(nikName, room, locs);
-		graphicMessage.addCreateEvent(newGo);
-		objects.put(newGo.getId(), newGo);
-		//fireCreateEvent(newGo.getId());
+		createAndReturnPolygonObject(locs);
+		return this;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see org.jcf.GraphicObjectHandler#createPolygonObject(java.util.List, org.jcf.graphicMessage.GraphicObjectProperty)
+	 */
+	public GraphicObjectHandler createPolygonObject(List<Location> locs,
+			GraphicObjectProperty graphicObjectProperty) {
+		Assert.notNull(locs);
+		GraphicObject g = createAndReturnPolygonObject(locs);
+		g.setGraphicObjectProperty(graphicObjectProperty);
 		return this;
 	}
 	
@@ -274,6 +287,51 @@ public class GraphicObjectHandlerImpl implements GraphicObjectHandler {
 		for(GraphicObjectEventListener l :listener ) {
 			l.createEvent(id);
 		}
+	}
+	
+	/**
+	 * creates and returns new Point Object
+	 * @param locs location for creation
+	 */
+	private GraphicObject createAndReturnPointObject(Location loc) {
+		GraphicMessage graphicMessage = threadLocalGraphicalMessage.get();
+		if(graphicMessage==null)
+			throw new JCFException("GraphicMessage available. call createNewGraphicMessage first");
+		
+		GraphicObject newGo = GraphicObjectFactory.createPoint(nikName, room, loc);
+		graphicMessage.addCreateEvent(newGo);
+		objects.put(newGo.getId(), newGo);
+		return newGo;
+	}
+	
+	/**
+	 * creates and returns new Line Object
+	 * @param locs location for creation
+	 */
+	private GraphicObject createAndReturnLineObject(List<Location> locs) {
+		GraphicMessage graphicMessage = threadLocalGraphicalMessage.get();
+		if(graphicMessage==null)
+			throw new JCFException("GraphicMessage available. call createNewGraphicMessage first");
+		
+		GraphicObject newGo = GraphicObjectFactory.createLine(nikName, room, locs);
+		graphicMessage.addCreateEvent(newGo);
+		objects.put(newGo.getId(), newGo);
+		return newGo;
+	}
+	
+	/**
+	 * creates and returns new Polygon Object
+	 * @param locs location for creation
+	 */
+	private GraphicObject createAndReturnPolygonObject(List<Location> locs) {
+		GraphicMessage graphicMessage = threadLocalGraphicalMessage.get();
+		if(graphicMessage==null)
+			throw new JCFException("GraphicMessage available. call createNewGraphicMessage first");
+		
+		GraphicObject newGo = GraphicObjectFactory.createPolygon(nikName, room, locs);
+		graphicMessage.addCreateEvent(newGo);
+		objects.put(newGo.getId(), newGo);
+		return newGo;
 	}
 
 }

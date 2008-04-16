@@ -20,6 +20,7 @@ import java.util.Set;
 
 import org.jcf.graphicMessage.GraphicMessage;
 import org.jcf.graphicMessage.GraphicObject;
+import org.jcf.graphicMessage.GraphicObjectProperty;
 import org.jcf.graphicMessage.Id;
 import org.jcf.graphicMessage.Location;
 
@@ -97,28 +98,57 @@ public interface GraphicObjectHandler {
 	/**
 	 * Adding Message of creation of a PointImpl to the existing Message
 	 * and doing all the necessary operations in the store. 
-	 * Notifications are also thrown
+	 * Notifications are not thrown
 	 * @param loc Location of the PointImpl
 	 * @return this instance of GraphicObjectHandler
 	 */
 	GraphicObjectHandler createPointObject(Location loc);
+	
+	/**
+	 * Adding Message of creation of a PointImpl to the existing Message
+	 * and doing all the necessary operations in the store. 
+	 * Notifications are not thrown
+	 * @param loc Location of the PointImpl
+	 * @param graphicObjectProperty instance property to attach
+	 * @return this instance of GraphicObjectHandler
+	 */
+	GraphicObjectHandler createPointObject(Location loc, GraphicObjectProperty graphicObjectProperty);
 
 	/**
 	 * Adding Message of creation of a LineImpl to the existing Message
 	 * and doing all the necessary operations in the store. 
-	 * Notifications are also thrown
+	 * Notifications are not thrown
 	 * @param locs Locations of the LineImpl
 	 * @return this instance of GraphicObjectHandler
 	 */
 	GraphicObjectHandler createLineObject(List<Location> locs);
+	
+	/**
+	 * Adding Message of creation of a LineImpl to the existing Message
+	 * and doing all the necessary operations in the store. 
+	 * Notifications are not thrown
+	 * @param locs Locations of the LineImpl
+	 * @param graphicObjectProperty instance property to attach
+	 * @return this instance of GraphicObjectHandler
+	 */
+	GraphicObjectHandler createLineObject(List<Location> locs, GraphicObjectProperty graphicObjectProperty);
 
 	/**
 	 * Adding Message of creation of a PolygonImpl to the existing Message
 	 * and doing all the necessary operations in the store. 
-	 * Notifications are also thrown
+	 * Notifications are not thrown
 	 * @param locs Locations of the PolygonImpl
 	 * @return this instance of GraphicObjectHandler
 	 */
 	GraphicObjectHandler createPolygonObject(List<Location> locs);
 
+	/**
+	 * Adding Message of creation of a PolygonImpl to the existing Message
+	 * and doing all the necessary operations in the store. 
+	 * Notifications are not thrown
+	 * @param locs Locations of the PolygonImpl
+	 * @param graphicObjectProperty instance property to attach
+	 * @return this instance of GraphicObjectHandler
+	 */
+	GraphicObjectHandler createPolygonObject(List<Location> locs, GraphicObjectProperty graphicObjectProperty);
 }
