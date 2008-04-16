@@ -1,6 +1,6 @@
 package org.jcf;
 
-import java.util.Iterator;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -68,7 +68,7 @@ public interface JCFForm {
      *
      * @return an Iterator for the fields that are part of the form.
      */
-    public Iterator<JCFFormField> getFields();
+    public Collection<JCFFormField> getFields();
     
     /**
      * Returns the instructions that explain how to fill out the form and what the form is about.

@@ -1,6 +1,7 @@
 package org.jcf;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -87,13 +88,13 @@ public class JCFFormImpl implements JCFForm {
 	 * (non-Javadoc)
 	 * @see org.jcf.JCFForm#getFields()
 	 */
-	public Iterator<JCFFormField> getFields() {
+	public Collection<JCFFormField> getFields() {
 		Iterator<FormField> i = searchForm.getFields();
 		List<JCFFormField> l = new ArrayList<JCFFormField>();
 		while(i.hasNext()) {
 			l.add(new JCFFormFieldImpl(i.next()));
 		}
-		return l.iterator();
+		return l;
 	}
 
 	/*

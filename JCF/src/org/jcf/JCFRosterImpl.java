@@ -261,14 +261,14 @@ public class JCFRosterImpl implements JCFRoster {
 	 * (non-Javadoc)
 	 * @see org.jcf.JCFRoster#getPresences(java.lang.String)
 	 */
-	public Iterator<JCFPresence> getPresences(String user) {
+	public Collection<JCFPresence> getPresences(String user) {
 		Assert.hasLength(user);
 		Iterator<Presence> i = roster.getPresences(user);
 		List<JCFPresence> l = new ArrayList<JCFPresence>();
 		while(i.hasNext()) {
 			l.add(new JCFPresenceImpl(i.next()));
 		}
-		return l.iterator();
+		return l;
 	}
 
 }

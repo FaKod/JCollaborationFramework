@@ -28,7 +28,7 @@ public class JCFTest extends TestCase {
 	
 	JCFConnection con2;
 	JCFMultiUserChat muc2;
-	String jabberServer = "172.16.162.128";
+	String jabberServer = "joccis";
 
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#setUp()
