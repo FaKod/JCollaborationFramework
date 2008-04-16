@@ -134,8 +134,9 @@ class JCFConnectionImpl implements JCFConnection {
 		return passwd;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jcf.JCFConnection#getXMPPconnection()
+	/**
+	 * returns original smack object
+	 * @return
 	 */
 	public XMPPConnection getXMPPconnection() {
 		return xMPPconnection;
