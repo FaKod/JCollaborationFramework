@@ -9,6 +9,7 @@ import org.jcf.GraphicObjectEventListener;
 import org.jcf.JCFConnection;
 import org.jcf.JCFFactory;
 import org.jcf.JCFForm;
+import org.jcf.JCFMessage;
 import org.jcf.JCFMessageListener;
 import org.jcf.JCFMultiUserChat;
 import org.jcf.JCFReportedDataFromSearch;
@@ -155,7 +156,7 @@ public class JCFTest extends TestCase {
 			System.out.println("Listener " + name + ": GraphicMessage received: " + gm);
 		}
 
-		public void receivedMessage(String message) {
+		public void receivedMessage(JCFMessage message) {
 			System.out.println("Listener " + name + ": Message received: " + message);
 		}
 		

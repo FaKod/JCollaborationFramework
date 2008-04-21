@@ -28,7 +28,7 @@ public interface JCFMessageListener {
 	 * received message
 	 * @param message received message
 	 */
-	void receivedMessage(String message);
+	void receivedMessage(JCFMessage message);
 
 	/**
 	 * received graphic message

@@ -60,14 +60,14 @@ public interface JCFMultiUserChat {
 	 * sends message to room without using the GeographicMessage stored in the instance of GraphicObjectHandler
 	 * @param body body of the message
 	 */
-	void sendMessageWithoutGeographicMessage(String body);
+	void sendMessageWithoutGeographicMessage(JCFMessage body);
 	
 	/**
 	 * sends message to room using the GeographicMessage stored in the instance of GraphicObjectHandler and a new instance of
 	 * GeographicMessage is created.
 	 * @param body body of the message
 	 */
-	void sendMessage(String body);
+	void sendMessage(JCFMessage body);
 	
 	/**
 	 * returns the created instance after calling connect
