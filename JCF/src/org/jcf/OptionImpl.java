@@ -9,7 +9,7 @@ import org.springframework.util.Assert;
  * @author Gaston Dombiak
  * @author FaKod
  */
-public class JCFOptionImpl implements JCFOption {
+public class OptionImpl implements JCFOption {
 
 	/**
 	 * used for delegation
@@ -20,7 +20,7 @@ public class JCFOptionImpl implements JCFOption {
 	 * default ctor
 	 * @param next
 	 */
-	JCFOptionImpl(Option option) {
+	OptionImpl(Option option) {
 		Assert.notNull(option);
 		this.option = option;
 	}

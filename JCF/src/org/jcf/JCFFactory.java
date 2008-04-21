@@ -45,7 +45,7 @@ public abstract class JCFFactory {
 	 */
 	public static JCFMultiUserChat newJCFMultiUserChat(JCFConnection jCFConnection) {
 		Assert.notNull(jCFConnection);
-		return new JCFMultiUserChatImpl(jCFConnection);
+		return new MultiUserChatImpl(jCFConnection);
 	}
 	
 	/**
@@ -60,7 +60,7 @@ public abstract class JCFFactory {
 		Assert.hasLength(userName);
 		Assert.hasLength(passwd);
 		
-		return new JCFConnectionImpl(jabberServer, userName, passwd);
+		return new ConnectionImpl(jabberServer, userName, passwd);
 	}
 
 }

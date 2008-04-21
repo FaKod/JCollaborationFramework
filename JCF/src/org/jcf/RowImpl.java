@@ -9,7 +9,7 @@ import java.util.List;
 import org.jivesoftware.smackx.ReportedData.Row;
 import org.springframework.util.Assert;
 
-public class JCFRowImpl implements JCFRow {
+public class RowImpl implements JCFRow {
 
 	/**
 	 * used for delegate
@@ -20,7 +20,7 @@ public class JCFRowImpl implements JCFRow {
 	 * default ctor
 	 * @param row
 	 */
-	JCFRowImpl(Row row) {
+	RowImpl(Row row) {
 		Assert.notNull(row);
 		this.row = row;
 	}

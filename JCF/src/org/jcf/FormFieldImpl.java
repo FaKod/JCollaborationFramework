@@ -18,7 +18,7 @@ import org.springframework.util.Assert;
  * @author Gaston Dombiak
  * @author FaKod
  */
-public class JCFFormFieldImpl implements JCFFormField {
+public class FormFieldImpl implements JCFFormField {
 	
 	/**
 	 * used for delegation
@@ -29,7 +29,7 @@ public class JCFFormFieldImpl implements JCFFormField {
 	 * default ctor
 	 * @param formField
 	 */
-	JCFFormFieldImpl(FormField formField) {
+	FormFieldImpl(FormField formField) {
 		Assert.notNull(formField);
 		this.formField = formField;
 	}
@@ -48,7 +48,7 @@ public class JCFFormFieldImpl implements JCFFormField {
 	 */
 	public void addOption(JCFOption option) {
 		Assert.notNull(option);
-		formField.addOption(((JCFOptionImpl)option).getOption());
+		formField.addOption(((OptionImpl)option).getOption());
 	}
 
 	/*
@@ -93,7 +93,7 @@ public class JCFFormFieldImpl implements JCFFormField {
 		Iterator<Option> i = formField.getOptions();
 		List<JCFOption> l = Collections.synchronizedList(new ArrayList<JCFOption>());
 		while(i.hasNext())
-			l.add(new JCFOptionImpl(i.next()));
+			l.add(new OptionImpl(i.next()));
 		return l;
 	}
 

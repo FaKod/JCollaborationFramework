@@ -18,7 +18,7 @@ import org.springframework.util.Assert;
  * @author Gaston Dombiak
  * @author FaKod
  */
-public class JCFDataFormImpl implements JCFDataForm {
+public class DataFormImpl implements JCFDataForm {
 
 	/**
 	 * used to delegate
@@ -29,7 +29,7 @@ public class JCFDataFormImpl implements JCFDataForm {
 	 * default ctor
 	 * @param dataForm
 	 */
-	JCFDataFormImpl(DataForm dataForm) {
+	DataFormImpl(DataForm dataForm) {
 		Assert.notNull(dataForm);
 		this.dataForm = dataForm;
 	}
@@ -40,7 +40,7 @@ public class JCFDataFormImpl implements JCFDataForm {
 	 */
 	public void addField(JCFFormField field) {
 		Assert.notNull(field);
-		dataForm.addField(((JCFFormFieldImpl)field).getFormField());
+		dataForm.addField(((FormFieldImpl)field).getFormField());
 	}
 
 	/*
@@ -58,7 +58,7 @@ public class JCFDataFormImpl implements JCFDataForm {
 	 */
 	public void addItem(JCFReportedDataItem item) {
 		Assert.notNull(item);
-		dataForm.addItem(((JCFReportedDataItemImpl)item).getItem());
+		dataForm.addItem(((ReportedDataItemImpl)item).getItem());
 	}
 
 	/*
@@ -69,7 +69,7 @@ public class JCFDataFormImpl implements JCFDataForm {
 		Iterator<FormField> i = dataForm.getFields();
 		List<JCFFormField> l = Collections.synchronizedList(new ArrayList<JCFFormField>());
 		while(i.hasNext())
-			l.add(new JCFFormFieldImpl(i.next()));
+			l.add(new FormFieldImpl(i.next()));
 		return l;
 	}
 
@@ -93,7 +93,7 @@ public class JCFDataFormImpl implements JCFDataForm {
 		Iterator<Item> i = dataForm.getItems();
 		List<JCFReportedDataItem> l = Collections.synchronizedList(new ArrayList<JCFReportedDataItem>());
 		while(i.hasNext())
-			l.add(new JCFReportedDataItemImpl(i.next()));
+			l.add(new ReportedDataItemImpl(i.next()));
 		return null;
 	}
 
@@ -102,7 +102,7 @@ public class JCFDataFormImpl implements JCFDataForm {
 	 * @see org.jcf.JCFDataForm#getReportedData()
 	 */
 	public JCFReportedDataFromDataForm getReportedData() {
-		return new JCFReportedDataFromDataFormImpl(dataForm.getReportedData());
+		return new ReportedDataFromDataFormImpl(dataForm.getReportedData());
 	}
 
 	/*
@@ -136,7 +136,7 @@ public class JCFDataFormImpl implements JCFDataForm {
 	 */
 	public void setReportedData(JCFReportedDataFromDataForm reportedData) {
 		Assert.notNull(reportedData);
-		dataForm.setReportedData(((JCFReportedDataFromDataFormImpl)reportedData).getReportedData());
+		dataForm.setReportedData(((ReportedDataFromDataFormImpl)reportedData).getReportedData());
 	}
 
 	/*

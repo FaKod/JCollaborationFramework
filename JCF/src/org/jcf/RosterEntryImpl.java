@@ -17,14 +17,14 @@ import org.springframework.util.Assert;
  * @author Matt Tucker
  * @author FaKod
  */
-public class JCFRosterEntryImpl implements JCFRosterEntry {
+public class RosterEntryImpl implements JCFRosterEntry {
 
 	/**
 	 * used for delegation
 	 */
 	private RosterEntry rosterEntry;
 
-	JCFRosterEntryImpl(RosterEntry rosterEntry) {
+	RosterEntryImpl(RosterEntry rosterEntry) {
 		Assert.notNull(rosterEntry);
 		this.rosterEntry = rosterEntry;
 	}
@@ -45,7 +45,7 @@ public class JCFRosterEntryImpl implements JCFRosterEntry {
 		Collection<RosterGroup> c = rosterEntry.getGroups();
 		List<JCFRosterGroup> cj = Collections.synchronizedList(new ArrayList<JCFRosterGroup>());
 		for(RosterGroup r : c)
-			cj.add(new JCFRosterGroupImpl(r));
+			cj.add(new RosterGroupImpl(r));
 		return Collections.unmodifiableCollection(cj);
 	}
 

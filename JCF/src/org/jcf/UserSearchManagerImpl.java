@@ -25,7 +25,7 @@ import org.springframework.util.Assert;
  * @author Derek DeMoro
  * @author FaKod
  */
-public class JCFUserSearchManagerImpl implements JCFUserSearchManager {
+public class UserSearchManagerImpl implements JCFUserSearchManager {
 
 	/**
 	 * used for delegation
@@ -36,7 +36,7 @@ public class JCFUserSearchManagerImpl implements JCFUserSearchManager {
 	 * default ctor
 	 * @param userSearchManager
 	 */
-	JCFUserSearchManagerImpl(UserSearchManager userSearchManager) {
+	UserSearchManagerImpl(UserSearchManager userSearchManager) {
 		Assert.notNull(userSearchManager);
 		this.userSearchManager = userSearchManager;
 	}
@@ -48,7 +48,7 @@ public class JCFUserSearchManagerImpl implements JCFUserSearchManager {
 	public JCFForm getSearchForm(String searchService) {
 		Assert.hasLength(searchService);
 		try {
-			return new JCFFormImpl(userSearchManager.getSearchForm(searchService));
+			return new FormImpl(userSearchManager.getSearchForm(searchService));
 		} catch (XMPPException e) {
 			throw new JCFException("Error in JCFUserSearchManager.getSearchForm ", e);
 		}
@@ -63,7 +63,7 @@ public class JCFUserSearchManagerImpl implements JCFUserSearchManager {
 		Assert.notNull(searchForm);
 		Assert.hasLength(searchService);
 		try {
-			return new JCFReportedDataFromSearchImpl(userSearchManager.getSearchResults(((JCFFormImpl)searchForm).getForm(), searchService));
+			return new ReportedDataFromSearchImpl(userSearchManager.getSearchResults(((FormImpl)searchForm).getForm(), searchService));
 		} catch (XMPPException e) {
 			throw new JCFException("Error in JCFUserSearchManager.getSearchResults ", e);
 		}

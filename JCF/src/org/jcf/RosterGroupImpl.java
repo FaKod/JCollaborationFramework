@@ -18,7 +18,7 @@ import org.springframework.util.Assert;
  * @author Matt Tucker
  * @author FaKod
  */
-public class JCFRosterGroupImpl implements JCFRosterGroup {
+public class RosterGroupImpl implements JCFRosterGroup {
 
 	/**
 	 * used for delegation
@@ -29,7 +29,7 @@ public class JCFRosterGroupImpl implements JCFRosterGroup {
 	 * default ctor
 	 * @param createGroup used for delegation
 	 */
-	JCFRosterGroupImpl(RosterGroup rosterGroup) {
+	RosterGroupImpl(RosterGroup rosterGroup) {
 		Assert.notNull(rosterGroup);
 		this.rosterGroup = rosterGroup;
 	}
@@ -41,7 +41,7 @@ public class JCFRosterGroupImpl implements JCFRosterGroup {
 	public void addEntry(JCFRosterEntry entry) {
 		Assert.notNull(entry);
 		try {
-			rosterGroup.addEntry(((JCFRosterEntryImpl)entry).getRosterEntry());
+			rosterGroup.addEntry(((RosterEntryImpl)entry).getRosterEntry());
 		} catch (XMPPException e) {
 			throw new JCFException("Error in JCFRosterGroupImpl.addEntry ", e);
 		}
@@ -62,7 +62,7 @@ public class JCFRosterGroupImpl implements JCFRosterGroup {
 	 */
 	public boolean contains(JCFRosterEntry entry) {
 		Assert.notNull(entry);
-		return rosterGroup.contains(((JCFRosterEntryImpl)entry).getRosterEntry());
+		return rosterGroup.contains(((RosterEntryImpl)entry).getRosterEntry());
 	}
 
 	/*
@@ -73,7 +73,7 @@ public class JCFRosterGroupImpl implements JCFRosterGroup {
 		List<JCFRosterEntry> cj = Collections.synchronizedList(new ArrayList<JCFRosterEntry>());
 		Collection<RosterEntry> cr = rosterGroup.getEntries();
 		for(RosterEntry r : cr)
-			cj.add(new JCFRosterEntryImpl(r));
+			cj.add(new RosterEntryImpl(r));
 		return Collections.unmodifiableList(cj);
 	}
 
@@ -83,7 +83,7 @@ public class JCFRosterGroupImpl implements JCFRosterGroup {
 	 */
 	public JCFRosterEntry getEntry(String user) {
 		Assert.hasLength(user);
-		return new JCFRosterEntryImpl(rosterGroup.getEntry(user));
+		return new RosterEntryImpl(rosterGroup.getEntry(user));
 	}
 
 	/*
@@ -109,7 +109,7 @@ public class JCFRosterGroupImpl implements JCFRosterGroup {
 	public void removeEntry(JCFRosterEntry entry) {
 		Assert.notNull(entry);
 		try {
-			rosterGroup.removeEntry(((JCFRosterEntryImpl)entry).getRosterEntry());
+			rosterGroup.removeEntry(((RosterEntryImpl)entry).getRosterEntry());
 		} catch (XMPPException e) {
 			throw new JCFException("Error in JCFRosterGroup.removeEntry",e);
 		}

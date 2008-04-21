@@ -19,7 +19,7 @@ import org.springframework.util.Assert;
  * @author Gaston Dombiak
  * @author FaKod
  */
-public class JCFReportedDataFromSearchImpl implements JCFReportedDataFromSearch {
+public class ReportedDataFromSearchImpl implements JCFReportedDataFromSearch {
 
 	/**
 	 * used for delegation
@@ -30,7 +30,7 @@ public class JCFReportedDataFromSearchImpl implements JCFReportedDataFromSearch 
 	 * default ctor
 	 * @param reportedData
 	 */
-	JCFReportedDataFromSearchImpl(ReportedData reportedData) {
+	ReportedDataFromSearchImpl(ReportedData reportedData) {
 		Assert.notNull(reportedData);
 		this.reportedData = reportedData;
 	}
@@ -41,7 +41,7 @@ public class JCFReportedDataFromSearchImpl implements JCFReportedDataFromSearch 
 	 */
 	public void addColumn(JCFColumn column) {
 		Assert.notNull(column);
-		reportedData.addColumn(((JCFColumnImpl)column).getColumn());
+		reportedData.addColumn(((ColumnImpl)column).getColumn());
 	}
 
 	/*
@@ -50,7 +50,7 @@ public class JCFReportedDataFromSearchImpl implements JCFReportedDataFromSearch 
 	 */
 	public void addRow(JCFRow row) {
 		Assert.notNull(row);
-		reportedData.addRow(((JCFRowImpl)row).getRow());
+		reportedData.addRow(((RowImpl)row).getRow());
 	}
 
 	/*
@@ -61,7 +61,7 @@ public class JCFReportedDataFromSearchImpl implements JCFReportedDataFromSearch 
 		Iterator<Column> i = reportedData.getColumns();
 		List<JCFColumn> l = Collections.synchronizedList(new ArrayList<JCFColumn>());
 		while(i.hasNext())
-			l.add(new JCFColumnImpl(i.next()));
+			l.add(new ColumnImpl(i.next()));
 		return l;
 	}
 
@@ -73,7 +73,7 @@ public class JCFReportedDataFromSearchImpl implements JCFReportedDataFromSearch 
 		Iterator<Row> i = reportedData.getRows();
 		List<JCFRow> l = Collections.synchronizedList(new ArrayList<JCFRow>());
 		while(i.hasNext())
-			l.add(new JCFRowImpl(i.next()));
+			l.add(new RowImpl(i.next()));
 		return l;
 	}
 

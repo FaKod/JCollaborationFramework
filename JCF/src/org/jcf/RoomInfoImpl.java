@@ -10,7 +10,7 @@ import org.springframework.util.Assert;
  *
  * @author FaKod
  */
-class MUCRoomInfoImpl implements MUCRoomInfo {
+class RoomInfoImpl implements MUCRoomInfo {
 	
 	/**
 	 * isntance of Smack class
@@ -21,7 +21,7 @@ class MUCRoomInfoImpl implements MUCRoomInfo {
 	 * default ctor
 	 * @param ri instance of room info
 	 */
-	MUCRoomInfoImpl(RoomInfo ri) {
+	RoomInfoImpl(RoomInfo ri) {
 		Assert.notNull(ri);
 		instance = ri;
 	}

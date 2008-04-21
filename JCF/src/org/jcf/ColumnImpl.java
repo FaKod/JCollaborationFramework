@@ -10,7 +10,7 @@ import org.springframework.util.Assert;
 * @author Gaston Dombiak
 * @author Fakod
 */
-public class JCFColumnImpl implements JCFColumn {
+public class ColumnImpl implements JCFColumn {
 
 	/**
 	 * used for delegation
@@ -21,7 +21,7 @@ public class JCFColumnImpl implements JCFColumn {
 	 * default ctor
 	 * @param column
 	 */
-	JCFColumnImpl(Column column) {
+	ColumnImpl(Column column) {
 		Assert.notNull(column);
 		this.column= column;
 	}

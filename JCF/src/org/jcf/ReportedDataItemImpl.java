@@ -17,7 +17,7 @@ import org.springframework.util.Assert;
  * @author Gaston Dombiak
  * @author FaKod
  */
-public class JCFReportedDataItemImpl implements JCFReportedDataItem {
+public class ReportedDataItemImpl implements JCFReportedDataItem {
 
 	/**
 	 * used to delegate
@@ -28,7 +28,7 @@ public class JCFReportedDataItemImpl implements JCFReportedDataItem {
 	 * default ctor
 	 * @param item
 	 */
-	JCFReportedDataItemImpl(Item item) {
+	ReportedDataItemImpl(Item item) {
 		Assert.notNull(item);
 		this.item = item;
 	}
@@ -49,7 +49,7 @@ public class JCFReportedDataItemImpl implements JCFReportedDataItem {
 		Iterator<FormField> i = item.getFields();
 		List<JCFFormField> l = Collections.synchronizedList(new ArrayList<JCFFormField>());
 		while(i.hasNext())
-			l.add(new JCFFormFieldImpl(i.next()));
+			l.add(new FormFieldImpl(i.next()));
 		return l;
 	}
 

@@ -35,7 +35,7 @@ import org.springframework.util.Assert;
  * @author FaKod
  *
  */
-class JCFConnectionImpl implements JCFConnection {
+class ConnectionImpl implements JCFConnection {
 	
 	/**
 	 * parameter use for connection
@@ -59,7 +59,7 @@ class JCFConnectionImpl implements JCFConnection {
 	 * dont use this
 	 */
 	@SuppressWarnings("unused")
-	private JCFConnectionImpl(){}
+	private ConnectionImpl(){}
 	
 	/**
 	 * Connection class for connection to a jabber server
@@ -67,7 +67,7 @@ class JCFConnectionImpl implements JCFConnection {
 	 * @param userName username in chatserver to connect
 	 * @param passwd password on chatserver
 	 */
-	JCFConnectionImpl(String jabberServer, String userName, String passwd) {
+	ConnectionImpl(String jabberServer, String userName, String passwd) {
 		Assert.hasLength(jabberServer);
 		Assert.hasLength(userName);
 		Assert.hasLength(passwd);
@@ -209,7 +209,7 @@ class JCFConnectionImpl implements JCFConnection {
 		} catch (XMPPException e) {
 			throw new JCFException("error in getMUCRoomInfo", e);
 		}
-		return new MUCRoomInfoImpl(ri);
+		return new RoomInfoImpl(ri);
 	}
 
 	/*
@@ -220,7 +220,7 @@ class JCFConnectionImpl implements JCFConnection {
 		if(xMPPconnection==null)
 			throw new JCFException("call connect first");
 		if(jCFRoster==null)
-			jCFRoster = new JCFRosterImpl(xMPPconnection.getRoster());
+			jCFRoster = new RosterImpl(xMPPconnection.getRoster());
 		return jCFRoster;
 	}
 	
@@ -231,6 +231,6 @@ class JCFConnectionImpl implements JCFConnection {
 	public JCFUserSearchManager getJCFUserSearchManager() {
 		if(xMPPconnection==null)
 			throw new JCFException("call connect first");
-		return new JCFUserSearchManagerImpl(new UserSearchManager(xMPPconnection));
+		return new UserSearchManagerImpl(new UserSearchManager(xMPPconnection));
 	}
 }

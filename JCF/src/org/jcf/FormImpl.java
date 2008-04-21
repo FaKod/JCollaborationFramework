@@ -26,7 +26,7 @@ import org.springframework.util.Assert;
  * @author Gaston Dombiak
  * @author FaKod
  */
-public class JCFFormImpl implements JCFForm {
+public class FormImpl implements JCFForm {
 
 	/**
 	 * used for delegation
@@ -37,7 +37,7 @@ public class JCFFormImpl implements JCFForm {
 	 * default ctor
 	 * @param searchForm
 	 */
-	JCFFormImpl(Form searchForm) {
+	FormImpl(Form searchForm) {
 		Assert.notNull(searchForm);
 		this.searchForm = searchForm;
 	}
@@ -56,7 +56,7 @@ public class JCFFormImpl implements JCFForm {
 	 */
 	public void addField(JCFFormField field) {
 		Assert.notNull(field);
-		searchForm.addField(((JCFFormFieldImpl)field).getFormField());
+		searchForm.addField(((FormFieldImpl)field).getFormField());
 		
 	}
 
@@ -65,7 +65,7 @@ public class JCFFormImpl implements JCFForm {
 	 * @see org.jcf.JCFForm#createAnswerForm()
 	 */
 	public JCFForm createAnswerForm() {
-		return new JCFFormImpl(searchForm.createAnswerForm());
+		return new FormImpl(searchForm.createAnswerForm());
 	}
 
 	/*
@@ -73,7 +73,7 @@ public class JCFFormImpl implements JCFForm {
 	 * @see org.jcf.JCFForm#getDataFormToSend()
 	 */
 	public JCFDataForm getDataFormToSend() {
-		return new JCFDataFormImpl(searchForm.getDataFormToSend());
+		return new DataFormImpl(searchForm.getDataFormToSend());
 	}
 
 	/*
@@ -82,7 +82,7 @@ public class JCFFormImpl implements JCFForm {
 	 */
 	public JCFFormField getField(String variable) {
 		Assert.hasLength(variable);
-		return new JCFFormFieldImpl(searchForm.getField(variable));
+		return new FormFieldImpl(searchForm.getField(variable));
 	}
 
 	/*
@@ -93,7 +93,7 @@ public class JCFFormImpl implements JCFForm {
 		Iterator<FormField> i = searchForm.getFields();
 		List<JCFFormField> l = Collections.synchronizedList(new ArrayList<JCFFormField>());
 		while(i.hasNext()) {
-			l.add(new JCFFormFieldImpl(i.next()));
+			l.add(new FormFieldImpl(i.next()));
 		}
 		return l;
 	}

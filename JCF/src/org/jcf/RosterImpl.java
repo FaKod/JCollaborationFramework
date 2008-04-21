@@ -23,7 +23,7 @@ import org.springframework.util.Assert;
  * @author FaKod
  * @author Matt Tucker
  */
-public class JCFRosterImpl implements JCFRoster {
+public class RosterImpl implements JCFRoster {
 	
 	/**
 	 * used for delegation
@@ -39,13 +39,13 @@ public class JCFRosterImpl implements JCFRoster {
 	 * dont use this
 	 */
 	@SuppressWarnings("unused")
-	private JCFRosterImpl(){}
+	private RosterImpl(){}
 
 	/**
 	 * default ctor uses the given Smack roster
 	 * @param roster
 	 */
-	JCFRosterImpl(Roster roster) {
+	RosterImpl(Roster roster) {
 		Assert.notNull(roster);
 		this.roster = roster;	
 		rosterListener = Collections.synchronizedList(new ArrayList<JCFRosterListener>());
@@ -72,7 +72,7 @@ public class JCFRosterImpl implements JCFRoster {
 
 			public void presenceChanged(Presence presence) {
 				for(JCFRosterListener l : rosterListener)
-					l.presenceChanged(new JCFPresenceImpl(presence));
+					l.presenceChanged(new PresenceImpl(presence));
 			}
 		    
 		});
@@ -115,7 +115,7 @@ public class JCFRosterImpl implements JCFRoster {
 	 */
 	public JCFRosterGroup createGroup(String name) {
 		Assert.hasLength(name);
-		return new JCFRosterGroupImpl(roster.createGroup(name));
+		return new RosterGroupImpl(roster.createGroup(name));
 	}
 
 	/*
@@ -126,7 +126,7 @@ public class JCFRosterImpl implements JCFRoster {
 		Collection<RosterEntry> c = roster.getEntries();
 		List<JCFRosterEntry> cj = Collections.synchronizedList(new ArrayList<JCFRosterEntry>());
 		for(RosterEntry r : c)
-			cj.add(new JCFRosterEntryImpl(r));
+			cj.add(new RosterEntryImpl(r));
 		return Collections.unmodifiableCollection(cj);
 	}
 
@@ -136,7 +136,7 @@ public class JCFRosterImpl implements JCFRoster {
 	 */
 	public JCFRosterEntry getEntry(String user) {
 		Assert.notNull(user);
-		return new JCFRosterEntryImpl(roster.getEntry(user));
+		return new RosterEntryImpl(roster.getEntry(user));
 	}
 
 	public int getEntryCount() {
@@ -149,7 +149,7 @@ public class JCFRosterImpl implements JCFRoster {
 	 */
 	public JCFRosterGroup getGroup(String name) {
 		Assert.hasLength(name);
-		return new JCFRosterGroupImpl(roster.getGroup(name));
+		return new RosterGroupImpl(roster.getGroup(name));
 	}
 
 	/*
@@ -168,7 +168,7 @@ public class JCFRosterImpl implements JCFRoster {
 		Collection<RosterGroup> c = roster.getGroups();
 		List<JCFRosterGroup> cj = Collections.synchronizedList(new ArrayList<JCFRosterGroup>());
 		for(RosterGroup r : c)
-			cj.add(new JCFRosterGroupImpl(r));
+			cj.add(new RosterGroupImpl(r));
 		return Collections.unmodifiableList(cj);
 	}
 
@@ -178,7 +178,7 @@ public class JCFRosterImpl implements JCFRoster {
 	 */
 	public JCFPresence getPresence(String user) {
 		Assert.hasLength(user);
-		return new JCFPresenceImpl(roster.getPresence(user));
+		return new PresenceImpl(roster.getPresence(user));
 	}
 
 	/*
@@ -187,7 +187,7 @@ public class JCFRosterImpl implements JCFRoster {
 	 */
 	public JCFPresence getPresenceResource(String userWithResource) {
 		Assert.hasLength(userWithResource);
-		return new JCFPresenceImpl(roster.getPresenceResource(userWithResource));
+		return new PresenceImpl(roster.getPresenceResource(userWithResource));
 	}
 
 	/*
@@ -206,7 +206,7 @@ public class JCFRosterImpl implements JCFRoster {
 		Collection<RosterEntry> c = roster.getUnfiledEntries();
 		List<JCFRosterEntry> cj = Collections.synchronizedList(new ArrayList<JCFRosterEntry>());
 		for(RosterEntry r : c)
-			cj.add(new JCFRosterEntryImpl(r));
+			cj.add(new RosterEntryImpl(r));
 		return Collections.unmodifiableCollection(cj);
 	}
 
@@ -233,7 +233,7 @@ public class JCFRosterImpl implements JCFRoster {
 	public void removeEntry(JCFRosterEntry entry) {
 		Assert.notNull(entry);
 		try {
-			roster.removeEntry(((JCFRosterEntryImpl)entry).getRosterEntry());
+			roster.removeEntry(((RosterEntryImpl)entry).getRosterEntry());
 		} catch (XMPPException e) {
 			throw new JCFException("Error in JCFRoster.removeEntry",e);
 		}
@@ -266,7 +266,7 @@ public class JCFRosterImpl implements JCFRoster {
 		Iterator<Presence> i = roster.getPresences(user);
 		List<JCFPresence> l = Collections.synchronizedList(new ArrayList<JCFPresence>());
 		while(i.hasNext()) {
-			l.add(new JCFPresenceImpl(i.next()));
+			l.add(new PresenceImpl(i.next()));
 		}
 		return l;
 	}

@@ -37,7 +37,7 @@ import org.springframework.util.Assert;
  * @author FaKod
  *
  */
-class JCFMultiUserChatImpl implements JCFMultiUserChat {
+class MultiUserChatImpl implements JCFMultiUserChat {
 	
 	/**
 	 * keyword for property inside an message
@@ -73,7 +73,7 @@ class JCFMultiUserChatImpl implements JCFMultiUserChat {
 	 * dont use this
 	 */
 	@SuppressWarnings("unused")
-	private JCFMultiUserChatImpl() {}
+	private MultiUserChatImpl() {}
 
 	/**
 	 * default ctor. use connect to connect to the jabber server
@@ -81,7 +81,7 @@ class JCFMultiUserChatImpl implements JCFMultiUserChat {
 	 * @param userName username in chatserver to connect
 	 * @param passwd password on chatserver
 	 */
-	JCFMultiUserChatImpl(JCFConnection jCFConnection) {
+	MultiUserChatImpl(JCFConnection jCFConnection) {
 		Assert.notNull(jCFConnection);
 		
 		this.jCFConnection = jCFConnection;
@@ -96,7 +96,7 @@ class JCFMultiUserChatImpl implements JCFMultiUserChat {
 		Assert.hasLength(room);
 		
 		setRoomID(room);
-		multiUserChat = new MultiUserChat(((JCFConnectionImpl)jCFConnection).getXMPPconnection(), roomID);
+		multiUserChat = new MultiUserChat(((ConnectionImpl)jCFConnection).getXMPPconnection(), roomID);
 		roomNikname = jCFConnection.getUserName() + "@" + room;
 		
 		try {
@@ -116,7 +116,7 @@ class JCFMultiUserChatImpl implements JCFMultiUserChat {
 		Assert.hasLength(room);
 		
 		setRoomID(room);
-		multiUserChat = new MultiUserChat(((JCFConnectionImpl)jCFConnection).getXMPPconnection(), roomID);
+		multiUserChat = new MultiUserChat(((ConnectionImpl)jCFConnection).getXMPPconnection(), roomID);
 		roomNikname = jCFConnection.getUserName() + "@" + room;
 		try {
 			multiUserChat.join(roomNikname);

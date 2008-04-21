@@ -10,7 +10,7 @@ import org.springframework.util.Assert;
  * @author fakod
  * @author Matt Tucker
  */
-public class JCFPresenceImpl implements JCFPresence {
+public class PresenceImpl implements JCFPresence {
 
 	/**
 	 * used as delegator
@@ -21,7 +21,7 @@ public class JCFPresenceImpl implements JCFPresence {
 	 * default ctor using smack ctor
 	 * @param presence
 	 */
-	JCFPresenceImpl(Presence presence) {
+	PresenceImpl(Presence presence) {
 		Assert.notNull(presence);
 		this.presence = presence;
 	}
