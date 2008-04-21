@@ -3,6 +3,7 @@ package org.jcf;
 import java.util.Collection;
 
 import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smack.packet.Message.Type;
 import org.springframework.util.Assert;
 
 /**
@@ -13,9 +14,25 @@ import org.springframework.util.Assert;
 public class MessageImpl implements JCFMessage {
 
 	/**
-	 * orginal Smack Message class
+	 * original Smack Message class
 	 */
 	private Message message;
+	
+	/**
+	 * default ctor
+	 */
+	MessageImpl() {
+		message = new Message();
+	}
+	
+	/**
+	 * creates new Message object
+	 * @param body body to set a default
+	 */
+	MessageImpl(String body) {
+		Assert.hasLength(body);
+		message = new Message(body);
+	}
 	
 	/**
 	 * copy ctor
@@ -23,6 +40,36 @@ public class MessageImpl implements JCFMessage {
 	 */
 	MessageImpl(Message message) {
 		this.message = message;
+	}
+	
+	/**
+	 * Creates a new message of the specified type to a recipient.
+	 * 
+	 * @param to the user to send the message to.
+     * @param type the message type.
+	 */
+	void setTo (String to) {
+		Assert.hasLength(to);
+		message.setTo(to);
+	}
+	
+	/**
+	 * Creates a new message of the specified type to a recipient.
+	 * 
+	 * @param to the user to send the message to.
+     * @param type the message type.
+	 */
+	void setType (Type type) {
+		Assert.notNull(type);
+		message.setType(type);
+	}
+	
+	/**
+	 * returns the native message instance
+	 * @return
+	 */
+	Message getMessage() {
+		return message;
 	}
 
 	/*
@@ -117,6 +164,24 @@ public class MessageImpl implements JCFMessage {
 	@Override
 	public String toString() {
 		return getBody();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.jcf.JCFMessage#getProperty(java.lang.String)
+	 */
+	public Object getProperty(String name) {
+		Assert.hasLength(name);
+		return message.getProperty(name);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.jcf.JCFMessage#setProperty(java.lang.String, java.lang.Object)
+	 */
+	public void setProperty(String name, Object value) {
+		Assert.hasLength(name);
+		message.setProperty(name, value);
 	}
 
 }

@@ -90,4 +90,24 @@ public interface JCFMessage {
      * @param thread the thread id of the message.
      */
     public void setThread(String thread);
+    
+    /**
+     * Sets a property with an Object as the value. The value must be Serializable
+     * or an IllegalArgumentException will be thrown.
+     *
+     * @param name the name of the property.
+     * @param value the value of the property.
+     */
+    public void setProperty(String name, Object value);
+    
+    /**
+     * Returns the packet property with the specified name or <tt>null</tt> if the
+     * property doesn't exist. Property values that were orginally primitives will
+     * be returned as their object equivalent. For example, an int property will be
+     * returned as an Integer, a double as a Double, etc.
+     *
+     * @param name the name of the property.
+     * @return the property, or <tt>null</tt> if the property doesn't exist.
+     */
+    public Object getProperty(String name);
 }

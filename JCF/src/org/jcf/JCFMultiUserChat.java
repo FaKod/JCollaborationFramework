@@ -31,6 +31,19 @@ public interface JCFMultiUserChat {
 	 * @param room name of the room
 	 */
 	void createRoom(String room);
+	
+	/**
+	 * creates new message 
+	 * @return new instance of JCFMessage
+	 */
+	JCFMessage createJCFMessage();
+	
+	/**
+	 * creates new message 
+	 * @param body default body
+	 * @return new instance of JCFMessage
+	 */
+	JCFMessage createJCFMessage(String body);
 
 	/**
 	 * joins room. user name is userName + "@" + room

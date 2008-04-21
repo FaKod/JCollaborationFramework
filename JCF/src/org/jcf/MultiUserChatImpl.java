@@ -177,11 +177,11 @@ class MultiUserChatImpl implements JCFMultiUserChat {
 		if(roomID==null)
 			throw new JCFException("no room created or joined");
 		
-		Message message = new Message(roomID, Message.Type.groupchat);
-		message.setBody(jCFMessage);
-		message.setProperty(new String(messagePropertyKeyWord), getGraphicObjectHandler().getGraphicMessage());
+		((MessageImpl)jCFMessage).setTo(roomID);
+		((MessageImpl)jCFMessage).setType(Message.Type.groupchat);
+		jCFMessage.setProperty(new String(messagePropertyKeyWord), getGraphicObjectHandler().getGraphicMessage());
 		try {
-			multiUserChat.sendMessage(message);
+			multiUserChat.sendMessage(((MessageImpl)jCFMessage).getMessage());
 		} catch (XMPPException e) {
 			throw new JCFException("send message failed", e);
 		}	
@@ -197,10 +197,10 @@ class MultiUserChatImpl implements JCFMultiUserChat {
 		if(multiUserChat==null)
 			throw new JCFException("create or join room first");
 		
-		Message message = new Message(roomID, Message.Type.groupchat);
-		message.setBody(jCFMessage);
+		((MessageImpl)jCFMessage).setTo(roomID);
+		((MessageImpl)jCFMessage).setType(Message.Type.groupchat);
 		try {
-			multiUserChat.sendMessage(message);
+			multiUserChat.sendMessage(((MessageImpl)jCFMessage).getMessage());
 		} catch (XMPPException e) {
 			throw new JCFException("send message failed", e);
 		}	
@@ -278,6 +278,25 @@ class MultiUserChatImpl implements JCFMultiUserChat {
 	public void removeMUCInvitationRejectionListener(MUCInvitationRejectionListener l) {
 		Assert.notNull(l);
 		invitationRejectionListener.remove(l);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.jcf.JCFMultiUserChat#createJCFMessage()
+	 */
+	public JCFMessage createJCFMessage() {
+		return new MessageImpl();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.jcf.JCFMultiUserChat#createJCFMessage(java.lang.String)
+	 */
+	public JCFMessage createJCFMessage(String body) {
+		Assert.hasLength(body);
+		JCFMessage m = new MessageImpl();
+		m.setBody(body);
+		return m;
 	}
 	
 }

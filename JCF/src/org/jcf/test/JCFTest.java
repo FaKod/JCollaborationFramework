@@ -29,7 +29,7 @@ public class JCFTest extends TestCase {
 	
 	JCFConnection con2;
 	JCFMultiUserChat muc2;
-	String jabberServer = "joccis";
+	String jabberServer = "172.16.162.128";
 
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#setUp()
@@ -76,8 +76,8 @@ public class JCFTest extends TestCase {
 		muc2.getGraphicObjectHandler().addListener(new GOListener("test2"));
 		
 		// sending Messages
-		muc.sendMessageWithoutGeographicMessage("sendMessageWithoutGeographicMessage MUC");
-		muc2.sendMessageWithoutGeographicMessage("sendMessageWithoutGeographicMessage MUC2");
+		muc.sendMessageWithoutGeographicMessage(muc.createJCFMessage("sendMessageWithoutGeographicMessage MUC"));
+		muc2.sendMessageWithoutGeographicMessage(muc2.createJCFMessage("sendMessageWithoutGeographicMessage MUC2"));
 		
 		muc.getGraphicObjectHandler().addListener(new GOListener("test"));
 		muc.getGraphicObjectHandler().createNewGraphicMessage();
@@ -90,7 +90,7 @@ public class JCFTest extends TestCase {
 		.createLineObject(list)
 		.createPolygonObject(list);
 		
-		muc.sendMessage("sendMessage");
+		muc.sendMessage(muc.createJCFMessage("sendMessage"));
 	
 	}
 	
