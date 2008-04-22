@@ -61,30 +61,50 @@ public class JCFTest extends TestCase {
 	}
 	
 	public void testJCF() throws Exception {
+		System.out.println("**** Start testJCF() ****");
+		
+		System.out.println("\n\n**** Creating Room ****\n\n");
 		con = JCFFactory.newJCFConnection(jabberServer, "test", "test");
 		con.connect();
 		
 		muc = JCFFactory.newJCFMultiUserChat(con);
-		muc.addListener(new listener("test"));
+		muc.addListener(new listener("User:test"));
 		muc.createRoom("MyTestRoom");
+		muc.getGraphicObjectHandler().addListener(new GOListener("User:test"));
 		
+		Thread.sleep(200);
 		
-		
+		System.out.println("\n\n**** Joining room ****\n\n");
 		con2 = JCFFactory.newJCFConnection(jabberServer, "test2", "test2");
 		con2.connect();
 		muc2 = JCFFactory.newJCFMultiUserChat(con2);
-		muc2.addListener(new listener("test2"));
+		muc2.addListener(new listener("User:test2"));
 		muc2.joinRoom("MyTestRoom");
-		muc2.getGraphicObjectHandler().addListener(new GOListener("test2"));
+		muc2.getGraphicObjectHandler().addListener(new GOListener("User:test2"));
+		
 		
 		// sending Messages
+		System.out.println("\n\n**** Test send Message Without Geographic Message ****\n\n");
 		muc.sendMessageWithoutGeographicMessage(muc.createJCFMessage("sendMessageWithoutGeographicMessage MUC"));
+		Thread.sleep(200);
 		
-		JCFMessage threadMessage = muc2.createJCFMessage("sendMessageWithoutGeographicMessage MUC2");
+		
+		//sending thread message 1
+		System.out.println("\n\n**** Test send Message Without Geographic Message and new Thread ****\n\n");
+		JCFMessage threadMessage = muc2.createJCFMessage("User:test2 is sending this message with new Thread");
 		threadMessage.setThread("This is my test Thread");
 		muc2.sendMessageWithoutGeographicMessage(threadMessage);
+		Thread.sleep(200);
 		
-		muc.getGraphicObjectHandler().addListener(new GOListener("test"));
+		
+		//sending thread message 1
+		System.out.println("\n\n**** Test send Message Without Geographic Message and same Thread ****\n\n");
+		threadMessage = muc2.createJCFMessage("User:test2 is sending this message with old Thread");
+		threadMessage.setThread("This is my test Thread");
+		muc2.sendMessageWithoutGeographicMessage(threadMessage);
+		Thread.sleep(200);
+		
+		//creating new message
 		muc.getGraphicObjectHandler().createNewGraphicMessage();
 		
 		ArrayList<Location> list = new ArrayList<Location>();
@@ -95,11 +115,15 @@ public class JCFTest extends TestCase {
 		.createLineObject(list)
 		.createPolygonObject(list);
 		
-		muc.sendMessage(muc.createJCFMessage("sendMessage"));
-	
+		System.out.println("\n\n**** Test send Message with 4 GObjects ****\n\n");
+		muc.sendMessage(muc.createJCFMessage("I created 4 Graphical Objects"));
+		Thread.sleep(200);
+		System.out.println("\n\n**** END ****\n\n");
 	}
 	
 	public void testUserSearch() {
+		System.out.println("**** testUserSearch() ****\n\n");
+		
 		con = JCFFactory.newJCFConnection(jabberServer, "test", "test");
 		con.connect();
 		
@@ -118,6 +142,7 @@ public class JCFTest extends TestCase {
 			Collection<String> jids = row.getValues("jid");
 			System.out.println("User: " + jids.toArray()[0]);
 		}
+		System.out.println("\n\n**** END ****\n\n");
 	}
 	
 	/**
