@@ -124,24 +124,28 @@ public class GraphicObjectHandlerImpl implements GraphicObjectHandler {
 		if(events==null)
 			return;
 		
-		for(Event e : events) {
-			if(e instanceof Delete) {
-				Id id = ((Delete)e).getId();
-				Assert.notNull(id);
-				if(objects.remove(id) != null)
-					fireDeleteEvent(id);
+		synchronized(objects) {
+			for(Event e : events) {
+				if(e instanceof Delete) {
+					Id id = ((Delete)e).getId();
+					Assert.notNull(id);
+					if(objects.remove(id) != null)
+						fireDeleteEvent(id);
+				}
 			}
-		}
-		
-		for(Event e : events) {
-			if(e instanceof Create) {
-				GraphicObject g = ((Create)e).getGraphicObject();
-				
-				Assert.notNull(g);
-				Assert.notNull(g.getId());
-				
-				objects.put(g.getId(), g);
-				fireCreateEvent(g.getId());
+			
+			for(Event e : events) {
+				if(e instanceof Create) {
+					GraphicObject g = ((Create)e).getGraphicObject();
+					
+					Assert.notNull(g);
+					Assert.notNull(g.getId());
+					
+					Object shouldBeNull = objects.put(g.getId(), g);
+					if(shouldBeNull!=null)
+						throw new JCFException("An existing Object is newly created");
+					fireCreateEvent(g.getId());
+				}
 			}
 		}
 	}
@@ -177,12 +181,10 @@ public class GraphicObjectHandlerImpl implements GraphicObjectHandler {
 			throw new JCFException("GraphicMessage available. call createNewGraphicMessage first");
 		
 		graphicMessage.addDeleteEvent(graphicObjectId);
-		objects.remove(graphicObjectId);
 		
 		GraphicObject newGo = GraphicObjectFactory.create(oldGo, nikName, room, newLocations);
 		newGo.setGraphicObjectProperty(oldGo.getGraphicObjectProperty());
 		graphicMessage.addCreateEvent(newGo);
-		objects.put(newGo.getId(), newGo);
 		
 		return this;
 	}
@@ -198,8 +200,7 @@ public class GraphicObjectHandlerImpl implements GraphicObjectHandler {
 			throw new JCFException("GraphicMessage available. call createNewGraphicMessage first");
 		
 		graphicMessage.addDeleteEvent(graphicObjectId);
-		objects.remove(graphicObjectId);
-		//fireDeleteEvent(graphicObjectId);
+
 		return this;
 	}
 	
@@ -301,7 +302,7 @@ public class GraphicObjectHandlerImpl implements GraphicObjectHandler {
 		
 		GraphicObject newGo = GraphicObjectFactory.createPoint(nikName, room, loc);
 		graphicMessage.addCreateEvent(newGo);
-		objects.put(newGo.getId(), newGo);
+
 		return newGo;
 	}
 	
@@ -316,7 +317,7 @@ public class GraphicObjectHandlerImpl implements GraphicObjectHandler {
 		
 		GraphicObject newGo = GraphicObjectFactory.createLine(nikName, room, locs);
 		graphicMessage.addCreateEvent(newGo);
-		objects.put(newGo.getId(), newGo);
+
 		return newGo;
 	}
 	
@@ -331,7 +332,7 @@ public class GraphicObjectHandlerImpl implements GraphicObjectHandler {
 		
 		GraphicObject newGo = GraphicObjectFactory.createPolygon(nikName, room, locs);
 		graphicMessage.addCreateEvent(newGo);
-		objects.put(newGo.getId(), newGo);
+
 		return newGo;
 	}
 
