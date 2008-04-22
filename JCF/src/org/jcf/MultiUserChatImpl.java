@@ -69,6 +69,11 @@ class MultiUserChatImpl implements JCFMultiUserChat {
 	 */
 	private List<MUCInvitationRejectionListener> invitationRejectionListener;
 	
+	/*
+	 * list of all used threads
+	 */
+	private List<JCFMessageThread> threadList;
+	
 	/**
 	 * dont use this
 	 */
@@ -87,6 +92,7 @@ class MultiUserChatImpl implements JCFMultiUserChat {
 		this.jCFConnection = jCFConnection;
 		messageListener = Collections.synchronizedList(new ArrayList<JCFMessageListener>());
 		invitationRejectionListener = Collections.synchronizedList(new ArrayList<MUCInvitationRejectionListener>());
+		threadList = Collections.synchronizedList(new ArrayList<JCFMessageThread>());
 	}
 	
 	/* (non-Javadoc)
@@ -215,14 +221,46 @@ class MultiUserChatImpl implements JCFMultiUserChat {
 		multiUserChat.addMessageListener( new PacketListener() {
 			public void processPacket(Packet packet) {
 				Message message = (Message) packet;
-				GraphicMessage gm = (GraphicMessage) message.getProperty(new String(messagePropertyKeyWord));
-				if(gm!=null)
+				JCFMessageThread messageThread = null;
+				
+				/**
+				 * graphic Message stuff
+				 */
+				GraphicMessage graphicMessage = (GraphicMessage) message.getProperty(new String(messagePropertyKeyWord));
+				if(graphicMessage!=null)
+					getGraphicObjectHandler().processGraphicMessage(graphicMessage);
+				
+				/**
+				 * thread stuff
+				 */
+				String tmpThread = message.getThread();
+				if( (tmpThread != null) && (tmpThread.length()>0) ) {
+					messageThread = new MessageThreadImpl(tmpThread);
+					if(!threadList.contains(messageThread)) {
+						threadList.add(messageThread);
+						for(JCFMessageListener l :messageListener ) {
+							if(l instanceof JCFThreadMessageListener)
+								((JCFThreadMessageListener)l).newJCFMessageThread(messageThread);
+						}
+					}
+				}
+				
+				/**
+				 * normal message with GraphicMessage
+				 */
+				if(graphicMessage!=null)
 					for(JCFMessageListener l :messageListener ) {
-						getGraphicObjectHandler().processGraphicMessage(gm);
-						l.receivedGraphicMessage(gm);
+						if(l instanceof JCFSimpleMessageListener)
+							((JCFSimpleMessageListener)l).receivedGraphicMessage(graphicMessage);
+						if( (l instanceof JCFThreadMessageListener) && messageThread != null)
+							((JCFThreadMessageListener)l).receivedGraphicMessage(messageThread, graphicMessage);
 					}	
+					
 				for(JCFMessageListener l :messageListener ) {
-					l.receivedMessage(new MessageImpl(message));
+					if(l instanceof JCFSimpleMessageListener)
+						((JCFSimpleMessageListener)l).receivedMessage(new MessageImpl(message));
+					if( (l instanceof JCFThreadMessageListener) && messageThread != null)
+						((JCFThreadMessageListener)l).receivedMessage(messageThread, new MessageImpl(message));
 				}
 			}
 		});

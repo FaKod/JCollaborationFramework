@@ -10,7 +10,7 @@ import org.jcf.JCFConnection;
 import org.jcf.JCFFactory;
 import org.jcf.JCFForm;
 import org.jcf.JCFMessage;
-import org.jcf.JCFMessageListener;
+import org.jcf.JCFSimpleMessageListener;
 import org.jcf.JCFMultiUserChat;
 import org.jcf.JCFReportedDataFromSearch;
 import org.jcf.JCFRow;
@@ -29,7 +29,7 @@ public class JCFTest extends TestCase {
 	
 	JCFConnection con2;
 	JCFMultiUserChat muc2;
-	String jabberServer = "172.16.162.128";
+	String jabberServer = "joccis";
 
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#setUp()
@@ -144,7 +144,7 @@ public class JCFTest extends TestCase {
 	 * @author FaKod
 	 *
 	 */
-	public class listener implements JCFMessageListener {
+	public class listener implements JCFSimpleMessageListener {
 		
 		String name;
 		
