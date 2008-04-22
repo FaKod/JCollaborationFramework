@@ -132,6 +132,7 @@ public class GraphicObjectHandlerImpl implements GraphicObjectHandler {
 					fireDeleteEvent(id);
 			}
 		}
+		
 		for(Event e : events) {
 			if(e instanceof Create) {
 				GraphicObject g = ((Create)e).getGraphicObject();
@@ -139,8 +140,7 @@ public class GraphicObjectHandlerImpl implements GraphicObjectHandler {
 				Assert.notNull(g);
 				Assert.notNull(g.getId());
 				
-				// if there is a non null return its an unpossible update
-				Assert.isNull(objects.put(g.getId(), g));
+				objects.put(g.getId(), g);
 				fireCreateEvent(g.getId());
 			}
 		}
