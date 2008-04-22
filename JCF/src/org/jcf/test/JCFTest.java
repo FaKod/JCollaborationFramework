@@ -10,10 +10,12 @@ import org.jcf.JCFConnection;
 import org.jcf.JCFFactory;
 import org.jcf.JCFForm;
 import org.jcf.JCFMessage;
+import org.jcf.JCFMessageThread;
 import org.jcf.JCFSimpleMessageListener;
 import org.jcf.JCFMultiUserChat;
 import org.jcf.JCFReportedDataFromSearch;
 import org.jcf.JCFRow;
+import org.jcf.JCFThreadMessageListener;
 import org.jcf.JCFUserSearchManager;
 import org.jcf.graphicMessage.GraphicMessage;
 import org.jcf.graphicMessage.Id;
@@ -77,7 +79,10 @@ public class JCFTest extends TestCase {
 		
 		// sending Messages
 		muc.sendMessageWithoutGeographicMessage(muc.createJCFMessage("sendMessageWithoutGeographicMessage MUC"));
-		muc2.sendMessageWithoutGeographicMessage(muc2.createJCFMessage("sendMessageWithoutGeographicMessage MUC2"));
+		
+		JCFMessage threadMessage = muc2.createJCFMessage("sendMessageWithoutGeographicMessage MUC2");
+		threadMessage.setThread("This is my test Thread");
+		muc2.sendMessageWithoutGeographicMessage(threadMessage);
 		
 		muc.getGraphicObjectHandler().addListener(new GOListener("test"));
 		muc.getGraphicObjectHandler().createNewGraphicMessage();
@@ -144,7 +149,7 @@ public class JCFTest extends TestCase {
 	 * @author FaKod
 	 *
 	 */
-	public class listener implements JCFSimpleMessageListener {
+	public class listener implements JCFSimpleMessageListener, JCFThreadMessageListener {
 		
 		String name;
 		
@@ -158,6 +163,20 @@ public class JCFTest extends TestCase {
 
 		public void receivedMessage(JCFMessage message) {
 			System.out.println("Listener " + name + ": Message received: " + message);
+		}
+
+		public void newJCFMessageThread(JCFMessageThread thread) {
+			System.out.println("Listener " + name + ": new Thread received: " + thread);
+			
+		}
+
+		public void receivedGraphicMessage(JCFMessageThread thread,
+				GraphicMessage gm) {
+			System.out.println("Listener " + name + ": GraphicMessage received: " + gm + " from Thread: " + thread);
+		}
+
+		public void receivedMessage(JCFMessageThread thread, JCFMessage message) {
+			System.out.println("Listener " + name + ": Message received: " + message + " from Thread: " + thread);
 		}
 		
 	}
