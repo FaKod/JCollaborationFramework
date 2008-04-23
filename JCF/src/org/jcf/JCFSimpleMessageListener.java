@@ -32,7 +32,8 @@ public interface JCFSimpleMessageListener extends JCFMessageListener {
 
 	/**
 	 * received graphic message
+	 * @param message message received
 	 * @param gm received graphic message
 	 */
-	void receivedGraphicMessage(GraphicMessage gm);
+	void receivedGraphicMessage(JCFMessage message, GraphicMessage gm);
 }

@@ -23,8 +23,9 @@ public interface JCFThreadMessageListener extends JCFMessageListener {
 
 	/**
 	 * received graphic message
+	 * @param message message received
 	 * @param gm received graphic message
 	 */
-	void receivedGraphicMessage(JCFMessageThread thread, GraphicMessage gm);
+	void receivedGraphicMessage(JCFMessageThread thread, JCFMessage message, GraphicMessage gm);
 
 }

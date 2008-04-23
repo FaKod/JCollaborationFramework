@@ -248,19 +248,22 @@ class MultiUserChatImpl implements JCFMultiUserChat {
 				/**
 				 * normal message with GraphicMessage
 				 */
-				if(graphicMessage!=null)
+				JCFMessage jCFMessage = new MessageImpl(message);
+				if(graphicMessage!=null) {
 					for(JCFMessageListener l :messageListener ) {
 						if(l instanceof JCFSimpleMessageListener)
-							((JCFSimpleMessageListener)l).receivedGraphicMessage(graphicMessage);
+							((JCFSimpleMessageListener)l).receivedGraphicMessage(jCFMessage, graphicMessage);
 						if( (l instanceof JCFThreadMessageListener) && messageThread != null)
-							((JCFThreadMessageListener)l).receivedGraphicMessage(messageThread, graphicMessage);
+							((JCFThreadMessageListener)l).receivedGraphicMessage(messageThread, jCFMessage, graphicMessage);
 					}	
-					
-				for(JCFMessageListener l :messageListener ) {
-					if(l instanceof JCFSimpleMessageListener)
-						((JCFSimpleMessageListener)l).receivedMessage(new MessageImpl(message));
-					if( (l instanceof JCFThreadMessageListener) && messageThread != null)
-						((JCFThreadMessageListener)l).receivedMessage(messageThread, new MessageImpl(message));
+				}
+				else {
+					for(JCFMessageListener l :messageListener ) {
+						if(l instanceof JCFSimpleMessageListener)
+							((JCFSimpleMessageListener)l).receivedMessage(jCFMessage);
+						if( (l instanceof JCFThreadMessageListener) && messageThread != null)
+							((JCFThreadMessageListener)l).receivedMessage(messageThread, jCFMessage);
+					}
 				}
 			}
 		});

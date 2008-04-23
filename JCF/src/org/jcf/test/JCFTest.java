@@ -182,7 +182,7 @@ public class JCFTest extends TestCase {
 			this.name = name;
 		}
 
-		public void receivedGraphicMessage(GraphicMessage gm) {
+		public void receivedGraphicMessage(JCFMessage message, GraphicMessage gm) {
 			System.out.println("Listener " + name + ": GraphicMessage received: " + gm);
 		}
 
@@ -196,7 +196,7 @@ public class JCFTest extends TestCase {
 		}
 
 		public void receivedGraphicMessage(JCFMessageThread thread,
-				GraphicMessage gm) {
+				JCFMessage message, GraphicMessage gm) {
 			System.out.println("Listener " + name + ": GraphicMessage received: " + gm + " from Thread: " + thread);
 		}
 
