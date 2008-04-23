@@ -124,28 +124,26 @@ public class GraphicObjectHandlerImpl implements GraphicObjectHandler {
 		if(events==null)
 			return;
 		
-		synchronized(objects) {
-			for(Event e : events) {
-				if(e instanceof Delete) {
-					Id id = ((Delete)e).getId();
-					Assert.notNull(id);
-					if(objects.remove(id) != null)
-						fireDeleteEvent(id);
-				}
+		for(Event e : events) {
+			if(e instanceof Delete) {
+				Id id = ((Delete)e).getId();
+				Assert.notNull(id);
+				if(objects.remove(id) != null)
+					fireDeleteEvent(id);
 			}
-			
-			for(Event e : events) {
-				if(e instanceof Create) {
-					GraphicObject g = ((Create)e).getGraphicObject();
-					
-					Assert.notNull(g);
-					Assert.notNull(g.getId());
-					
-					Object shouldBeNull = objects.put(g.getId(), g);
-					if(shouldBeNull!=null)
-						throw new JCFException("An existing Object is newly created");
-					fireCreateEvent(g.getId());
-				}
+		}
+		
+		for(Event e : events) {
+			if(e instanceof Create) {
+				GraphicObject g = ((Create)e).getGraphicObject();
+				
+				Assert.notNull(g);
+				Assert.notNull(g.getId());
+				
+				Object shouldBeNull = objects.put(g.getId(), g);
+				if(shouldBeNull!=null)
+					throw new JCFException("An existing Object is newly created");
+				fireCreateEvent(g.getId());
 			}
 		}
 	}
