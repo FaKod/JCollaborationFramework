@@ -113,10 +113,11 @@ public class JCFTest extends TestCase {
 		muc.getGraphicObjectHandler().createPointObject(new LocationImpl(1,1))
 		.createPointObject(new LocationImpl(2,1))
 		.createLineObject(list)
-		.createPolygonObject(list);
+		.createPolygonObject(list)
+		.createTextObject("This is my Text Object", new LocationImpl(1,1));
 		
-		System.out.println("\n\n**** Test send Message with 4 GObjects ****\n\n");
-		muc.sendMessage(muc.createJCFMessage("I created 4 Graphical Objects"));
+		System.out.println("\n\n**** Test send Message with 5 GObjects ****\n\n");
+		muc.sendMessage(muc.createJCFMessage("I created 5 Graphical Objects"));
 		Thread.sleep(200);
 		System.out.println("\n\n**** END ****\n\n");
 	}

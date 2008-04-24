@@ -265,6 +265,31 @@ public class GraphicObjectHandlerImpl implements GraphicObjectHandler {
 		return this;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see org.jcf.GraphicObjectHandler#createTextObject(java.lang.String, java.util.List)
+	 */
+	public GraphicObjectHandler createTextObject(String text,
+			Location loc) {
+		Assert.hasLength(text);
+		Assert.notNull(loc);
+		createAndReturnTextObject(text, loc);
+		return this;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.jcf.GraphicObjectHandler#createTextObject(java.lang.String, java.util.List, org.jcf.graphicMessage.GraphicObjectProperty)
+	 */
+	public GraphicObjectHandler createTextObject(String text,
+			Location loc, GraphicObjectProperty graphicObjectProperty) {
+		Assert.hasLength(text);
+		Assert.notNull(loc);
+		GraphicObject g = createAndReturnTextObject(text, loc);
+		g.setGraphicObjectProperty(graphicObjectProperty);
+		return this;
+	}
+	
 	/**
 	 * fires the necessary delete events
 	 * @param id
@@ -329,6 +354,22 @@ public class GraphicObjectHandlerImpl implements GraphicObjectHandler {
 			throw new JCFException("GraphicMessage available. call createNewGraphicMessage first");
 		
 		GraphicObject newGo = GraphicObjectFactory.createPolygon(nikName, room, locs);
+		graphicMessage.addCreateEvent(newGo);
+
+		return newGo;
+	}
+	
+	/**
+	 * creates and returns new Text Object
+	 * @param text text to diplay
+	 * @param loc location for creation
+	 */
+	private GraphicObject createAndReturnTextObject(String text, Location loc) {
+		GraphicMessage graphicMessage = threadLocalGraphicalMessage.get();
+		if(graphicMessage==null)
+			throw new JCFException("GraphicMessage available. call createNewGraphicMessage first");
+		
+		GraphicObject newGo = GraphicObjectFactory.createText(nikName, room, text, loc);
 		graphicMessage.addCreateEvent(newGo);
 
 		return newGo;

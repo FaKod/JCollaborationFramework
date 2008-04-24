@@ -151,4 +151,26 @@ public interface GraphicObjectHandler {
 	 * @return this instance of GraphicObjectHandler
 	 */
 	GraphicObjectHandler createPolygonObject(List<Location> locs, GraphicObjectProperty graphicObjectProperty);
+
+	/**
+	 * Adding Message of creation of a TextImpl to the existing Message
+	 * and doing all the necessary operations in the store. 
+	 * Notifications are not thrown
+	 * @param text the text to display
+	 * @param loc Locations of the TextImpl
+	 * @return this instance of GraphicObjectHandler
+	 */
+	GraphicObjectHandler createTextObject(String text, Location loc);
+	
+	/**
+	 * Adding Message of creation of a TextImpl to the existing Message
+	 * and doing all the necessary operations in the store. 
+	 * Notifications are not thrown
+	 * @param text the text to display
+	 * @param loc Locations of the TextImpl
+	 * @param graphicObjectProperty the properies
+	 * @return this instance of GraphicObjectHandler
+	 */
+	GraphicObjectHandler createTextObject(String text, Location loc, GraphicObjectProperty graphicObjectProperty);
+
 }

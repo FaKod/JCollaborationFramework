@@ -51,6 +51,10 @@ public abstract class GraphicObjectFactory {
 		if(go instanceof Polygon) {
 			return createPolygon(nikName,  room, locs);
 		}
+		if(go instanceof Text) {
+			Text t = (Text) go;
+			return createText(nikName,  room, t.getText(), locs.get(0));
+		}
 		throw new JCFException("Unsupported GraphicObject");
 	}
 
@@ -105,6 +109,27 @@ public abstract class GraphicObjectFactory {
 		Id id = IdFactory.getNextId(room, nikName);
 		Polygon p = new PolygonImpl(id);
 		p.addAllLocation(locs);
+		return p;
+	}
+	
+	/**
+	 * creating new TextImpl object with new id and a list of locations
+	 * @param nikName Nikname inside room
+	 * @param room name of the room
+	 * @param text text to diplay
+	 * @param loc Locatio of text
+	 * @return created Text Object
+	 */
+	public static Text createText(String nikName, String room, String text, Location loc) {
+		Assert.hasLength(nikName);
+		Assert.hasLength(room);
+		Assert.hasLength(text);
+		Assert.notNull(loc);
+		
+		Id id = IdFactory.getNextId(room, nikName);
+		Text p = new TextImpl(id);
+		p.addLocation(loc);
+		p.setText(text);
 		return p;
 	}
 }
