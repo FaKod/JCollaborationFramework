@@ -40,10 +40,13 @@ public class RowImpl implements JCFRow {
 	@SuppressWarnings("unchecked")
 	public Collection<String> getValues(String variable) {
 		Assert.hasLength(variable);
+		List<String> l = null;
 		Iterator<String> i = row.getValues(variable);
-		List<String> l = Collections.synchronizedList(new ArrayList<String>());
-		while(i.hasNext())
-			l.add(new String(i.next()));
+		if(i != null) {
+			l = Collections.synchronizedList(new ArrayList<String>());
+			while(i.hasNext())
+				l.add(new String(i.next()));
+		}
 		return l;
 	}
 
